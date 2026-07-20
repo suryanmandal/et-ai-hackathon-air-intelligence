@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VayuSense | MLOps Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid #334155;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 2px;
+        }
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .animate-pulse-soft {
+            animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-high": "#242c27",
+                      "primary": "#4edea3",
+                      "secondary-container": "#3e495d",
+                      "on-tertiary-fixed-variant": "#842225",
+                      "on-primary": "#003824",
+                      "primary-fixed-dim": "#4edea3",
+                      "outline-variant": "#3c4a42",
+                      "on-primary-fixed-variant": "#005236",
+                      "on-background": "#dde4dd",
+                      "surface-dim": "#0e1511",
+                      "surface": "#0e1511",
+                      "tertiary-fixed-dim": "#ffb3af",
+                      "surface-container-low": "#161d19",
+                      "inverse-primary": "#006c49",
+                      "on-secondary-fixed": "#111c2d",
+                      "background": "#0e1511",
+                      "on-secondary-fixed-variant": "#3c475a",
+                      "surface-container-lowest": "#09100c",
+                      "secondary-fixed-dim": "#bcc7de",
+                      "tertiary": "#ffb3af",
+                      "surface-bright": "#343b36",
+                      "secondary": "#bcc7de",
+                      "surface-tint": "#4edea3",
+                      "on-primary-container": "#00422b",
+                      "outline": "#86948a",
+                      "surface-container-highest": "#2f3632",
+                      "primary-fixed": "#6ffbbe",
+                      "on-tertiary-fixed": "#410005",
+                      "on-secondary-container": "#aeb9d0",
+                      "surface-variant": "#2f3632",
+                      "on-error": "#690005",
+                      "on-secondary": "#263143",
+                      "on-error-container": "#ffdad6",
+                      "on-tertiary": "#650911",
+                      "inverse-on-surface": "#2b322d",
+                      "primary-container": "#10b981",
+                      "tertiary-fixed": "#ffdad7",
+                      "tertiary-container": "#fc7c78",
+                      "surface-container": "#1a211d",
+                      "on-surface": "#dde4dd",
+                      "inverse-surface": "#dde4dd",
+                      "error-container": "#93000a",
+                      "on-primary-fixed": "#002113",
+                      "on-tertiary-container": "#711419",
+                      "error": "#ffb4ab",
+                      "secondary-fixed": "#d8e3fb",
+                      "on-surface-variant": "#bbcabf"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "16px",
+                      "xs": "4px",
+                      "xl": "40px",
+                      "unit": "4px",
+                      "md": "16px",
+                      "sm": "8px",
+                      "lg": "24px",
+                      "container-max": "1440px"
+              },
+              "fontFamily": {
+                      "mono-data": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "label-md": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "mono-data": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-[#0f172a] text-on-surface font-body-md selection:bg-primary selection:text-on-primary overflow-hidden h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="bg-surface-container-high dark:bg-surface-container-high border-b border-outline-variant flex justify-between items-center w-full px-md h-16 shrink-0 z-50">
+<div class="flex items-center gap-md">
+<h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight">VayuSense</h1>
+<div class="hidden md:flex items-center gap-sm ml-xl">
+<span class="text-on-surface-variant font-body-md hover:bg-surface-container-highest transition-colors px-sm py-1 cursor-pointer">Dashboard</span>
+<span class="text-primary border-b-2 border-primary pb-1 font-body-md px-sm py-1 cursor-pointer">Analytics</span>
+<span class="text-on-surface-variant font-body-md hover:bg-surface-container-highest transition-colors px-sm py-1 cursor-pointer">Emergency</span>
+<span class="text-on-surface-variant font-body-md hover:bg-surface-container-highest transition-colors px-sm py-1 cursor-pointer">Archive</span>
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<div class="flex items-center gap-xs px-sm py-1 bg-primary/10 border border-primary/20 rounded">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse-soft"></span>
+<span class="font-label-md text-label-md text-primary tracking-wider">SYSTEM ACTIVE</span>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-highest p-2 rounded transition-colors" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-highest p-2 rounded transition-colors" data-icon="settings">settings</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-highest p-2 rounded transition-colors" data-icon="account_circle">account_circle</button>
+</div>
+</div>
+</header>
+<!-- Main Dashboard Layout -->
+<main class="flex flex-1 overflow-hidden">
+<!-- Left Panel (70% Width) -->
+<section class="w-[70%] h-full flex flex-col p-lg gap-lg overflow-y-auto custom-scrollbar bg-[#0f172a]">
+<!-- KPI Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- KPI 1 -->
+<div class="glass-panel p-md rounded-lg flex flex-col justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-xs">Predictive Precision (RMSE)</span>
+<div class="flex items-end justify-between">
+<span class="font-headline-lg text-headline-lg text-on-surface font-mono-data tracking-tight">11.42 μg/m³</span>
+<div class="flex items-center text-primary mb-1">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_downward">arrow_downward</span>
+<span class="font-label-md text-label-md ml-xs">-1.4%</span>
+</div>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="glass-panel p-md rounded-lg flex flex-col justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-xs">R-Squared Accuracy (R²)</span>
+<div class="flex items-end justify-between">
+<span class="font-headline-lg text-headline-lg text-on-surface font-mono-data tracking-tight">0.894</span>
+<div class="flex items-center text-secondary mb-1">
+<span class="material-symbols-outlined text-sm" data-icon="horizontal_rule">horizontal_rule</span>
+<span class="font-label-md text-label-md ml-xs">Stable</span>
+</div>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="glass-panel p-md rounded-lg flex flex-col justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-xs">Mean Absolute Error (MAE)</span>
+<div class="flex items-end justify-between">
+<span class="font-headline-lg text-headline-lg text-on-surface font-mono-data tracking-tight">8.19 μg/m³</span>
+<div class="h-6 w-12 bg-surface-container-highest/50 rounded overflow-hidden flex items-center justify-center">
+<div class="w-full h-1 bg-primary/40"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Convergence History Graph Container -->
+<div class="glass-panel rounded-lg flex flex-col flex-1 min-h-[400px]">
+<div class="p-md border-b border-outline-variant flex justify-between items-center">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Real-Time Validation Convergence History</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Training Epochs (0-200) Performance Monitoring</p>
+</div>
+<div class="flex gap-md">
+<div class="flex items-center gap-xs">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="font-label-md text-label-md text-on-surface-variant">Training Loss</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="w-3 h-3 rounded-full bg-tertiary-container"></span>
+<span class="font-label-md text-label-md text-on-surface-variant">Validation RMSE</span>
+</div>
+</div>
+</div>
+<div class="relative flex-1 p-md overflow-hidden">
+<!-- SVG Chart Logic -->
+<svg class="w-full h-full preserve-3d" preserveaspectratio="none" viewbox="0 0 1000 400">
+<!-- Grid Lines -->
+<line stroke="#334155" stroke-width="1" x1="0" x2="1000" y1="360" y2="360"></line>
+<line stroke="#334155" stroke-dasharray="4" stroke-width="0.5" x1="0" x2="1000" y1="270" y2="270"></line>
+<line stroke="#334155" stroke-dasharray="4" stroke-width="0.5" x1="0" x2="1000" y1="180" y2="180"></line>
+<line stroke="#334155" stroke-dasharray="4" stroke-width="0.5" x1="0" x2="1000" y1="90" y2="90"></line>
+<line stroke="#334155" stroke-width="1" x1="0" x2="1000" y1="0" y2="0"></line>
+<!-- Shaded Area -->
+<path d="M 0,340 Q 100,280 200,220 Q 300,180 400,140 Q 500,120 600,105 Q 700,95 800,90 Q 900,87 1000,85 L 1000,360 L 0,360 Z" fill="url(#grad1)" opacity="0.1"></path>
+<!-- Training Line (Smooth) -->
+<path d="M 0,340 Q 100,280 200,220 Q 300,180 400,140 Q 500,120 600,105 Q 700,95 800,90 Q 900,87 1000,85" fill="none" stroke="#4edea3" stroke-linecap="round" stroke-width="3"></path>
+<!-- Validation Line (Jittery) -->
+<path d="M 0,355 L 50,330 L 100,345 L 150,300 L 200,315 L 250,260 L 300,280 L 350,220 L 400,240 L 450,180 L 500,200 L 550,150 L 600,165 L 650,125 L 700,140 L 750,110 L 800,120 L 850,100 L 900,105 L 950,95 L 1000,98" fill="none" stroke="#fc7c78" stroke-linecap="round" stroke-opacity="0.8" stroke-width="2"></path>
+<defs>
+<lineargradient id="grad1" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#4edea3;stop-opacity:0.5"></stop>
+<stop offset="100%" style="stop-color:#4edea3;stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+</svg>
+<!-- Axis Labels -->
+<div class="absolute left-6 top-1/2 -rotate-90 -translate-y-1/2">
+<span class="font-label-md text-label-md text-on-surface-variant/60 tracking-widest uppercase">Loss / RMSE (μg/m³)</span>
+</div>
+<div class="absolute bottom-2 left-1/2 -translate-x-1/2">
+<span class="font-label-md text-label-md text-on-surface-variant/60 tracking-widest uppercase">Training Epochs (0-200)</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Panel (30% Width) -->
+<aside class="w-[30%] h-full bg-surface-container-low border-l border-outline-variant flex flex-col overflow-hidden">
+<div class="p-lg flex flex-col gap-lg h-full">
+<!-- Engine Header -->
+<div class="flex flex-col gap-xs">
+<h2 class="font-headline-md text-headline-md text-on-surface">MLOps Control Engine</h2>
+<p class="font-label-md text-label-md text-primary tracking-tight uppercase">Active Model Architecture</p>
+<div class="p-sm bg-surface-container-high rounded border border-outline-variant mt-xs">
+<p class="font-mono-data text-mono-data text-on-surface">Random Forest Regressor + XGBoost Ensemble</p>
+</div>
+</div>
+<!-- Training Runs List -->
+<div class="flex flex-col flex-1 overflow-hidden">
+<div class="flex items-center justify-between mb-md">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Recent Training Runs</h3>
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="history">history</span>
+</div>
+<div class="flex flex-col gap-sm overflow-y-auto custom-scrollbar pr-xs">
+<!-- Run Item Active -->
+<div class="p-md bg-surface-container-high rounded-lg border-l-4 border-primary flex flex-col gap-xs relative overflow-hidden group">
+<div class="flex justify-between items-start">
+<span class="font-mono-data text-mono-data text-on-surface font-bold">Run #142</span>
+<span class="px-xs py-0.5 bg-primary/20 text-primary font-label-md text-label-md rounded border border-primary/30 uppercase">Active</span>
+</div>
+<div class="flex items-center gap-sm mt-1">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="check_circle">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface">Status: Stable Convergence</span>
+</div>
+<div class="grid grid-cols-2 gap-sm mt-sm">
+<div class="bg-surface-dim/40 p-xs rounded">
+<span class="block font-label-md text-[10px] text-on-surface-variant/70 uppercase">Max Depth</span>
+<span class="font-mono-data text-xs">12</span>
+</div>
+<div class="bg-surface-dim/40 p-xs rounded">
+<span class="block font-label-md text-[10px] text-on-surface-variant/70 uppercase">Learning Rate</span>
+<span class="font-mono-data text-xs">0.05</span>
+</div>
+</div>
+<div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+</div>
+<!-- Run Item Archived -->
+<div class="p-md bg-surface-container/50 rounded-lg border border-outline-variant/30 flex flex-col gap-xs opacity-70 hover:opacity-100 transition-opacity">
+<div class="flex justify-between items-start">
+<span class="font-mono-data text-mono-data text-on-surface-variant">Run #141</span>
+<span class="px-xs py-0.5 bg-surface-container-highest text-on-surface-variant font-label-md text-label-md rounded border border-outline-variant uppercase">Archived</span>
+</div>
+<div class="flex items-center gap-sm mt-1">
+<span class="material-symbols-outlined text-tertiary-container text-sm" data-icon="warning">warning</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Status: Overfitted</span>
+</div>
+</div>
+<!-- Run Item Archived 2 -->
+<div class="p-md bg-surface-container/50 rounded-lg border border-outline-variant/30 flex flex-col gap-xs opacity-70 hover:opacity-100 transition-opacity">
+<div class="flex justify-between items-start">
+<span class="font-mono-data text-mono-data text-on-surface-variant">Run #140</span>
+<span class="px-xs py-0.5 bg-surface-container-highest text-on-surface-variant font-label-md text-label-md rounded border border-outline-variant uppercase">Archived</span>
+</div>
+<div class="flex items-center gap-sm mt-1">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="verified">verified</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Status: Success</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action CTA -->
+<button class="mt-auto w-full py-md px-lg bg-primary text-on-primary font-label-md text-label-md font-bold rounded flex items-center justify-center gap-sm hover:opacity-90 active:scale-[0.98] transition-all tracking-widest shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined" data-icon="refresh">refresh</span>
+                    RE-RUN HYPERPARAMETER OPTIMIZATION TUNING
+                </button>
+</div>
+</aside>
+</main>
+<!-- Side Navigation Sidebar (Retracted/Hidden state visual placeholder as requested) -->
+<nav class="fixed left-0 top-16 h-[calc(100vh-64px)] w-12 bg-surface-container-low border-r border-outline-variant flex flex-col items-center py-md gap-lg z-40 transition-all duration-300">
+<div class="p-2 text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined" data-icon="menu_open">menu_open</span>
+</div>
+<div class="flex flex-col gap-md">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary cursor-pointer p-2 hover:bg-surface-container-highest rounded" data-icon="map">map</span>
+<span class="material-symbols-outlined text-primary bg-surface-container-high border-r-2 border-primary p-2 rounded" data-icon="sensors">sensors</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary cursor-pointer p-2 hover:bg-surface-container-highest rounded" data-icon="factory">factory</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary cursor-pointer p-2 hover:bg-surface-container-highest rounded" data-icon="terminal">terminal</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary cursor-pointer p-2 hover:bg-surface-container-highest rounded" data-icon="assessment">assessment</span>
+</div>
+<div class="mt-auto flex flex-col gap-md">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary cursor-pointer p-2 hover:bg-surface-container-highest rounded" data-icon="help">help</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary cursor-pointer p-2 hover:bg-surface-container-highest rounded" data-icon="cloud_done">cloud_done</span>
+</div>
+</nav>
+<!-- Background Elements -->
+<div class="fixed inset-0 pointer-events-none -z-10 opacity-30">
+
+</div>
+<script>
+        // Simple Micro-interaction for the Re-run button
+        const rerunBtn = document.querySelector('button.bg-primary');
+        rerunBtn.addEventListener('click', function() {
+            const originalContent = this.innerHTML;
+            this.innerHTML = `<span class="material-symbols-outlined animate-spin" data-icon="sync">sync</span> INITIALIZING ENGINE...`;
+            this.disabled = true;
+            this.classList.add('opacity-80');
+            
+            setTimeout(() => {
+                this.innerHTML = `<span class="material-symbols-outlined text-on-primary" data-icon="check">check</span> OPTIMIZATION QUEUED`;
+                setTimeout(() => {
+                    this.innerHTML = originalContent;
+                    this.disabled = false;
+                    this.classList.remove('opacity-80');
+                }, 2000);
+            }, 1500);
+        });
+
+        // Toggle Sidebar Expander logic (for demonstration of the 'retracted' requirement)
+        const sidebar = document.querySelector('nav');
+        const expandToggle = sidebar.querySelector('[data-icon="menu_open"]');
+        expandToggle.addEventListener('click', () => {
+            if (sidebar.classList.contains('w-12')) {
+                sidebar.classList.replace('w-12', 'w-64');
+                expandToggle.innerText = 'arrow_back_ios';
+            } else {
+                sidebar.classList.replace('w-64', 'w-12');
+                expandToggle.innerText = 'menu_open';
+            }
+        });
+    </script>
+</body></html>

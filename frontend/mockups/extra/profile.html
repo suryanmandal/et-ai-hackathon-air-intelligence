@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>VayuSense | Global System Settings</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#842225",
+                        "on-surface-variant": "#bbcabf",
+                        "on-secondary": "#263143",
+                        "on-primary-container": "#00422b",
+                        "inverse-surface": "#dde4dd",
+                        "tertiary": "#ffb3af",
+                        "inverse-on-surface": "#2b322d",
+                        "secondary": "#bcc7de",
+                        "on-background": "#dde4dd",
+                        "primary": "#4edea3",
+                        "on-secondary-container": "#aeb9d0",
+                        "surface-tint": "#4edea3",
+                        "background": "#0e1511",
+                        "surface-variant": "#2f3632",
+                        "outline-variant": "#3c4a42",
+                        "outline": "#86948a",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "on-tertiary": "#650911",
+                        "on-primary-fixed-variant": "#005236",
+                        "inverse-primary": "#006c49",
+                        "primary-fixed": "#6ffbbe",
+                        "secondary-container": "#3e495d",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-highest": "#2f3632",
+                        "on-secondary-fixed": "#111c2d",
+                        "on-primary-fixed": "#002113",
+                        "surface-dim": "#0e1511",
+                        "surface-container-lowest": "#09100c",
+                        "tertiary-container": "#fc7c78",
+                        "on-surface": "#dde4dd",
+                        "secondary-fixed": "#d8e3fb",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "error-container": "#93000a",
+                        "on-primary": "#003824",
+                        "on-error": "#690005",
+                        "surface-container-high": "#242c27",
+                        "on-tertiary-fixed": "#410005",
+                        "primary-container": "#10b981",
+                        "on-tertiary-container": "#711419",
+                        "surface-container-low": "#161d19",
+                        "surface": "#0e1511",
+                        "surface-container": "#1a211d",
+                        "primary-fixed-dim": "#4edea3",
+                        "tertiary-fixed": "#ffdad7",
+                        "error": "#ffb4ab",
+                        "surface-bright": "#343b36"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xl": "40px",
+                        "xs": "4px",
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "container-max": "1440px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "mono-data": ["JetBrains Mono"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "mono-data": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0e1511;
+            color: #dde4dd;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(51, 65, 85, 0.4);
+        }
+
+        .emerald-glow {
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0e1511;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #3c4a42;
+        }
+
+        .active-dot {
+            box-shadow: 0 0 8px #10b981;
+        }
+    </style>
+</head>
+
+<body class="h-screen overflow-hidden flex flex-col">
+    <!-- TopNavBar -->
+    <header
+        class="fixed top-0 w-full z-50 h-16 bg-surface-container dark:bg-surface-container border-b border-outline-variant flex justify-between items-center px-md">
+        <div class="flex items-center gap-xl">
+            <span class="font-display-lg text-display-lg font-bold text-primary tracking-tighter">VayuSense</span>
+            <nav class="hidden md:flex gap-md h-full items-center">
+                <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:opacity-80"
+                    href="#">Dashboard</a>
+                <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:opacity-80"
+                    href="#">Analytics</a>
+                <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:opacity-80"
+                    href="#">Emergency</a>
+                <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:opacity-80"
+                    href="#">Archive</a>
+            </nav>
+        </div>
+        <div class="flex items-center gap-md">
+            <span
+                class="font-label-md text-label-md text-primary font-bold tracking-widest px-sm py-xs bg-primary/10 rounded-xs">●
+                SYSTEM ACTIVE</span>
+            <div class="flex gap-sm">
+                <span
+                    class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">notifications</span>
+                <span
+                    class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">account_circle</span>
+            </div>
+        </div>
+    </header>
+    <div class="flex flex-1 pt-16 h-full">
+        <!-- SideNavBar (Left Rail) -->
+        <aside
+            class="fixed left-0 top-16 h-full w-16 bg-surface dark:bg-surface border-r border-outline-variant flex flex-col items-center py-md justify-between z-40">
+            <div class="flex flex-col items-center gap-lg">
+                <div
+                    class="p-sm text-on-surface-variant hover:bg-surface-variant transition-all scale-95 active:scale-90 cursor-pointer rounded-xs">
+                    <span class="material-symbols-outlined">home</span>
+                </div>
+                <div
+                    class="p-sm text-on-surface-variant hover:bg-surface-variant transition-all scale-95 active:scale-90 cursor-pointer rounded-xs">
+                    <span class="material-symbols-outlined">satellite_alt</span>
+                </div>
+                <div
+                    class="p-sm text-on-surface-variant hover:bg-surface-variant transition-all scale-95 active:scale-90 cursor-pointer rounded-xs">
+                    <span class="material-symbols-outlined">psychology</span>
+                </div>
+                <div
+                    class="p-sm text-on-surface-variant hover:bg-surface-variant transition-all scale-95 active:scale-90 cursor-pointer rounded-xs">
+                    <span class="material-symbols-outlined">local_police</span>
+                </div>
+            </div>
+            <div class="mb-20 flex flex-col items-center">
+                <div
+                    class="p-sm text-primary border-l-4 border-primary bg-primary-container/10 transition-all scale-95 active:scale-90 cursor-pointer">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+                </div>
+            </div>
+        </aside>
+        <!-- Sub-Navigation Flyout -->
+        <nav class="fixed left-16 top-16 h-full w-[240px] bg-[#09100c] border-r border-outline-variant z-30 p-md">
+            <h2 class="font-label-md text-label-md text-on-surface-variant/60 tracking-[0.2em] mb-lg uppercase">System
+                Settings</h2>
+            <div class="flex flex-col gap-xs">
+                <a class="flex items-center gap-sm p-sm bg-primary-container/5 border-l-2 border-primary text-primary group"
+                    href="#">
+                    <div class="w-1.5 h-1.5 rounded-full bg-primary active-dot shadow-[0_0_8px_#10b981]"></div>
+                    <span class="font-body-sm text-body-sm emerald-glow">Administrative Profile</span>
+                </a>
+                <a class="flex items-center gap-sm p-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors"
+                    href="#">
+                    <div class="w-1.5 h-1.5 rounded-full bg-transparent"></div>
+                    <span class="font-body-sm text-body-sm">API Access &amp; Webhooks</span>
+                </a>
+                <a class="flex items-center gap-sm p-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors"
+                    href="#">
+                    <div class="w-1.5 h-1.5 rounded-full bg-transparent"></div>
+                    <span class="font-body-sm text-body-sm">Node Calibration Thresholds</span>
+                </a>
+                <a class="flex items-center gap-sm p-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 transition-colors"
+                    href="#">
+                    <div class="w-1.5 h-1.5 rounded-full bg-transparent"></div>
+                    <span class="font-body-sm text-body-sm">Emergency Override Codes</span>
+                </a>
+            </div>
+        </nav>
+        <!-- Main Workspace Content -->
+        <main class="ml-[304px] flex-1 overflow-y-auto custom-scrollbar p-xl bg-background">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-xl h-full">
+                <!-- LEFT PANEL: Profile Card -->
+                <div class="flex flex-col gap-lg">
+                    <section
+                        class="glass p-xl rounded-lg border-t border-primary/10 flex flex-col items-center text-center">
+                        <div class="relative mb-lg">
+                            <div
+                                class="w-32 h-32 rounded-full border-2 border-primary p-1 shadow-[0_0_15px_rgba(78,222,163,0.3)]">
+                                <img alt="Biometric ID Avatar" class="w-full h-full object-cover rounded-full grayscale"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoVaJBowY7LIraqEsrlsFAXPMKC_HGYEjpsC1MyV1DLvVJMSgRdeqkCpMqvMn-m2J50AcIcdmgikS4AfhNSs4j9wdfd7WhjDlvZ-QT7WfT6jyu3Rf0Q0MIMS7LOvXqpSVdb05SZ7iXWhVn2F_ILztRM8HrawKK3-tWkxrgApUHyTUiIDZBLcs1BTLvIFqFatfo42rlPysrIpXMs2-Hn39RBU6I3T2bflHlCa3r3tSAMy52TNJJJt32b2g8p_sWjQ6rLhhXKEScBT4" />
+                            </div>
+                            <div
+                                class="absolute bottom-2 right-2 w-4 h-4 bg-primary rounded-full border-2 border-background active-dot">
+                            </div>
+                        </div>
+                        <h2 class="font-headline-md text-on-surface mb-xs">Dr. Abhijit K. Bhosale, IAS</h2>
+                        <p class="font-body-md text-primary mb-xl">Director, Environment &amp; Disaster Management Cell
+                        </p>
+                        <div class="w-full space-y-md text-left">
+                            <div class="flex flex-col border-b border-outline-variant/30 pb-sm">
+                                <span
+                                    class="font-label-md text-on-surface-variant/50 uppercase tracking-widest">Municipal
+                                    Node</span>
+                                <span class="font-mono-data text-body-sm text-on-surface">BMC Headquarters, Fort,
+                                    Mumbai</span>
+                            </div>
+                            <div class="flex flex-col border-b border-outline-variant/30 pb-sm">
+                                <span
+                                    class="font-label-md text-on-surface-variant/50 uppercase tracking-widest">Authorization
+                                    Rank</span>
+                                <span class="font-mono-data text-body-sm text-on-surface">Clearance Level 4 (Executive
+                                    Directorate)</span>
+                            </div>
+                            <div class="flex flex-col border-b border-outline-variant/30 pb-sm">
+                                <span
+                                    class="font-label-md text-on-surface-variant/50 uppercase tracking-widest">Assigned
+                                    Identity Token</span>
+                                <span class="font-mono-data text-body-sm text-[#00e5ff]/70">UID-882-BMC-IAS-2026</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-label-md text-on-surface-variant/50 uppercase tracking-widest">System
+                                    Login Anchor</span>
+                                <span class="font-body-sm text-on-surface-variant/70 italic">Session Verified via Secure
+                                    Cryptographic Protocol</span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- RIGHT PANEL: Operational Parameters -->
+                <div class="flex flex-col gap-lg">
+                    <section class="glass p-xl rounded-lg border-t border-primary/10 h-full flex flex-col">
+                        <h3 class="font-headline-md text-on-surface mb-xl">Display &amp; Operational Parameters</h3>
+                        <div class="space-y-xl flex-1">
+                            <div class="flex flex-col gap-sm">
+                                <label class="font-label-md text-on-surface-variant/70 uppercase tracking-wider">Default
+                                    Operational Viewport</label>
+                                <div class="relative">
+                                    <select
+                                        class="w-full bg-surface-container-lowest border border-outline-variant text-on-surface font-body-md p-md rounded-xs appearance-none focus:ring-1 focus:ring-primary">
+                                        <option selected="">Widescreen Hybrid Satellite GIS Map</option>
+                                        <option>Standard Vector Topographic</option>
+                                        <option>Thermal Heatmap Overlay</option>
+                                    </select>
+                                    <span
+                                        class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-sm">
+                                <label class="font-label-md text-on-surface-variant/70 uppercase tracking-wider">Log
+                                    Terminal Stream Refresh Rate</label>
+                                <div class="relative">
+                                    <select
+                                        class="w-full bg-surface-container-lowest border border-outline-variant text-on-surface font-body-md p-md rounded-xs appearance-none focus:ring-1 focus:ring-primary">
+                                        <option selected="">High-Frequency (500ms Stream Cache)</option>
+                                        <option>Standard (2000ms)</option>
+                                        <option>Low-Bandwidth (5000ms)</option>
+                                    </select>
+                                    <span
+                                        class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+                                </div>
+                            </div>
+                            <div
+                                class="flex items-center justify-between p-md bg-surface-container-low border border-outline-variant/30 rounded-xs">
+                                <span class="font-body-md text-on-surface">Enable Dark Mode Glassmorphism Canvas
+                                    Overlay</span>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input checked="" class="sr-only peer" type="checkbox" />
+                                    <div
+                                        class="w-11 h-6 bg-slate-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary peer-checked:shadow-[0_0_8px_#10b981]">
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mt-auto pt-xl flex justify-end">
+                            <button
+                                class="border border-primary/40 text-primary hover:bg-primary/10 font-label-md text-label-md px-xl py-md font-bold uppercase tracking-widest transition-all active:scale-95">
+                                APPLY WORKSPACE PREFERENCES
+                            </button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+    <!-- Background Decorative Element -->
+    <div class="fixed inset-0 pointer-events-none opacity-[0.03] z-[-1]"
+        style="background-image: linear-gradient(#4edea3 1px, transparent 1px), linear-gradient(90deg, #4edea3 1px, transparent 1px); background-size: 40px 40px;">
+    </div>
+    <script>
+        // Animation for the emerald glow pulsating slightly
+        const glowElements = document.querySelectorAll('.active-dot');
+        let opacity = 0.5;
+        let delta = 0.01;
+
+        function animateGlow() {
+            opacity += delta;
+            if (opacity > 0.8 || opacity < 0.4) delta = -delta;
+            glowElements.forEach(el => {
+                el.style.boxShadow = `0 0 ${10 + (opacity * 5)}px rgba(16, 185, 129, ${opacity})`;
+            });
+            requestAnimationFrame(animateGlow);
+        }
+        animateGlow();
+    </script>
+</body>
+
+</html>
