@@ -1,53 +1,21 @@
-# VayuSense - State Tracking & Operational Memory
+# Project Memory Log & Active Development Focus
 
-This document tracks VayuSense's persistent state configurations, active user profiles, and development milestones.
+## 1. System Constants & Established Assets
+*   **Active Platform Profile Mock Input:** Dr. Abhijit K. Bhosale, IAS, Director at Brihanmumbai Municipal Corporation (BMC), Environment & Disaster Management Cell.
+*   **Calibrated Operational Parameters:** Default Critical AQI Breach Threshold: `200`; Max Allowed PM2.5 Ceiling Value: `150 μg/m³`; AR Field Subsystems Target: `Strict Facial Consistency Mode: ON`.
+*   **Pan-India Municipal Coverage:** 277 Municipal Corporations fully configured across all 28 Indian States & Delhi UT in `frontend/src/lib/municipalData.ts`.
+*   **3 Major Emission Factors:**
+    1. Industrial Emissions & Power (~50%): Yellow ▲ Triangle Zone ($\text{SO}_2, \text{NO}_x, \text{PM}_{2.5}, \text{Pb}$)
+    2. Transportation & Vehicular Exhaust (~30%): Cyan ● Circle Corridor ($\text{NO}_2$, Black Carbon)
+    3. Construction & Dust (~20%): Purple ■ Square Grid ($\text{PM}_{10}$)
+*   **Pollutant Ingestion Feasibility Matrix:**
+    - PM2.5, PM10, SO2, NO2: Active real-time tracking streams.
+    - O3, CO, NH3: Ingestion service endpoints ready for external API keys payload.
+    - Pb (Lead): Handled via 24-hr manual lab filter analysis (non-real-time).
 
----
-
-## 1. Active User Profile
-
-The current operational session is anchored to the environment cell oversight board:
-
-- **Officer Name**: Dr. Abhijit K. Bhosale, IAS
-- **Role Title**: Director, Environment & Disaster Management Cell
-- **Organization**: Brihanmumbai Municipal Corporation (BMC)
-- **Active Node**: BMC Headquarters, Fort, Mumbai
-- **Assigned Identity Token**: `UID-882-BMC-IAS-2026`
-- **System Permission Level**: Clearance Level 4 (Executive Directorate Oversight)
-
----
-
-## 2. Platform Operational State
-
-- **System Status**: `SYSTEM ACTIVE`
-- **Current Core Calibration**:
-  - `aqiThreshold`: `200`
-  - `pmThreshold`: `150 µg/m³`
-  - `driftTolerance`: `±12%`
-- **Default GIS Viewport**: `Widescreen Hybrid Satellite GIS Map`
-- **Terminal Cache Stream Rate**: `500ms`
-- **Enforcement Policies**:
-  - *Strict Facial Consistency Mode*: Enabled
-  - *Multi-Agent Compliance Filing*: Enabled
-  - *Language Translation Cache Bypass*: Disabled
-
----
-
-## 3. Platform Development Milestones
-
-### Milestone 1: Workspace Initialization
-- Bootstrapped Next.js App Router workspace with global styling files.
-- Configured Material Symbols and responsive container layouts.
-
-### Milestone 2: Core Routing Setup
-- Moved control room to `/dashboard/home` and added standard redirects.
-- Established Geospatial routes (`/dashboard/geospatial/vector` and `/dashboard/geospatial/satellite`).
-
-### Milestone 3: MLOps & Agentic Module Refactoring
-- Created the Model Validation page and Scenario Sandbox views.
-- Separated Multi-Agent Topology maps, Translation Hub splits, and Exporter bundles under `/dashboard/agent-logs/...`.
-
-### Milestone 4: Global Settings Integration
-- Added the System Settings module categories (`/dashboard/settings` and `/dashboard/settings/profile`).
-- Hooked the settings gear icon in the layout rail to the Settings page.
-- Completed the Next.js static build check.
+## 2. Recent Architectural Achievements
+*   Completed collapsible hamburger accordion menu for floating map control panel in `frontend/src/app/dashboard/home/page.tsx`.
+*   Synchronized `geospatial/satellite/page.tsx` with `useMunicipal()` for real-time organic city boundary glow outlines.
+*   Built dynamic statutory Municipal Corporation Registry PDF generator for all 28 states and Delhi UT.
+*   Built visual Municipal Environmental Dispatch Evidence PDF generator with chemical formula callouts and shape markers.
+*   Verified production build stability with `npm run build` passing 23 routes with **0 errors**.

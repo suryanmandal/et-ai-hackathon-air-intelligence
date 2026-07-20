@@ -1,53 +1,29 @@
-# VayuSense - Execution Cycles & Telemetry Lifecycles
+# Application Implementation Milestones
 
-This document outlines the three phases of VayuSense's automated telemetry lifecycle, spanning sensor evaluation, attribution analysis, and compliance reporting.
+## Phase 1: Global Framework Shell & UI System Layout [COMPLETED]
+*   Build out the Next.js App Router workspace folder skeleton tree.
+*   Implement the Global Master Layout containing the Top Header Bar and Left Icon Navigation Strip.
+*   Configure the 240px secondary Flyout Drawer sub-navigation panel element.
 
----
+## Phase 2: Core Data Ingestion & Telemetry Pipelines [COMPLETED]
+*   Build Server-Sent Events (SSE) telemetry streaming endpoints for live AQI metrics.
+*   Populate complete Pan-India Municipal dataset covering **277 Municipal Corporations across all 28 States and Delhi UT**.
+*   Implement `MunicipalContext` for real-time state dropdown switching and auto-highest AQI selection.
 
-## The 3-Phase Telemetry Pipeline
+## Phase 3: Geospatial Layers & 3 Major Emission Factors [COMPLETED]
+*   Render organic multi-vertex corporation boundary outlines with dotted/dashed outer glow synchronized to AQI risk status.
+*   Implement GeoJSON spatial overlays for **3 Major Emission Factors**:
+    - Industrial & Power (50%): Yellow ▲ Triangle Zone
+    - Vehicular Exhaust (30%): Cyan ● Circle Corridor
+    - Construction Dust (20%): Purple ■ Square Grid
+*   Add Electric Indigo Sentinel-5P satellite plume layer with pulsating satellite badges.
+*   Add collapsible hamburger accordion toggle to floating map control panel for big-screen GIS views.
 
-```mermaid
-sequenceDiagram
-    participant GroundDevice as IoT Ground Sensors (MUM_042)
-    participant CoreSystem as VayuSense Core Engine
-    participant GIS as PostGIS Spatial Query
-    participant Agent as Multi-Agent Network (CrewAI)
-    participant BMC as BMC Environment Cell
+## Phase 4: Machine Learning & Autonomous Multi-Agent Integration [COMPLETED]
+*   Connect ML convergence monitoring and scenario simulation sandbox playgrounds.
+*   Implement autonomous multi-agent log feed tracking sensor calibration, plume dispersion, and compliance alerts.
 
-    Note over GroundDevice, CoreSystem: Phase 1: Sensor Evaluation
-    GroundDevice->>CoreSystem: Ingest Live Air Quality Index
-    alt Value exceeds 150 ug/m³ PM2.5 or 200 AQI
-        CoreSystem->>CoreSystem: Trigger Active Warning State
-    end
-
-    Note over CoreSystem, GIS: Phase 2: Deep Source Attribution
-    CoreSystem->>GIS: Execute Spatial Upwind Query
-    GIS-->>CoreSystem: Return Matching Factory & Traffic Nodes
-    CoreSystem->>Agent: Deploy CrewAI Attribution Task
-
-    Note over Agent, BMC: Phase 3: Compliance Assembly
-    Agent->>Agent: Compile Evidence PDF & SHA-256 Signatures
-    Agent->>CoreSystem: Localize Warning Logs (Hindi/Marathi)
-    CoreSystem->>BMC: Dispatch Signed Exporter Evidence Package
-```
-
----
-
-## 1. Phase 1: Sensor Evaluation
-- **Trigger**: Continuous data ingestion from IoT ground devices (e.g. static sensor node `MUM_042`).
-- **Evaluation**: The sensor checks if live telemetry breaches the `pmThreshold` (150 µg/m³) or `aqiThreshold` (200).
-- **Escalation**: Upon breaching, the system transitions from nominal status to active warning mode. A warning highlight is placed over the mapped H3 hexagon grid.
-
----
-
-## 2. Phase 2: Deep Source Attribution
-- **Analysis**: The system triggers an upwind vector spatial analysis to trace the path of wind and identify the likely emission sources.
-- **Database Query**: A PostGIS spatial join checks for intersecting polygons in `industrial_zones` and line strings in `traffic_segments` located inside the upwind corridor coordinates.
-- **Attribution Match**: The `SourceAttributionAgent` processes the dataset to calculate source contribution percentages (e.g. Industrial: 42%, Construction: 38%, Diesel Fleet: 20%).
-
----
-
-## 3. Phase 3: Compliance Report Assembly
-- **Notice Generation**: The `ComplianceAgent` automatically generates a structured statutory enforcement notice containing the source attribution evidence, PostGIS coordinates, and timestamp.
-- **Regional Localization**: The document is routed through the **Regional Language Translation Hub**, creating parallel translation layers in Hindi and Marathi to ensure clear legal notification.
-- **Municipal Dispatch**: The finalized evidence bundle is signed using SHA-256 and sent to the BMC Environment & Disaster Management Cell for enforcement routing.
+## Phase 5: Statutory Reports & PDF Evidence Generators [COMPLETED]
+*   Build dynamic Statutory Municipal Corporations Registry PDF generator customizable per selected state.
+*   Build visual Municipal Environmental Dispatch Report PDF generator with emission factor markers (▲, ●, ■), color-coded bar graphs, and explicit chemical formulas ($\text{SO}_2, \text{NO}_x, \text{PM}_{2.5}, \text{Pb}, \text{NO}_2, \text{PM}_{10}$).
+*   Configure SHA-256 cryptographically signed CSV audit log exports.

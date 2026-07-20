@@ -1,61 +1,19 @@
-# VayuSense - Product Requirements Document (PRD)
+# Product Requirements Document (PRD) - VayuSense
 
-VayuSense is an enterprise-grade GovTech platform designed for the Brihanmumbai Municipal Corporation (BMC) as a Municipal Environmental Monitoring & Automated Regulatory Command Engine. It combines spatial analytics, machine learning forecasts, multi-agent pipelines, and compliance ledger logging into a unified command room interface.
+## 1. Project Overview & Core Vision
+VayuSense is an enterprise-grade Municipal Environmental Monitoring & Automated Regulatory Command Engine built for dense urban centers across India. The platform ingests real-time environmental metrics, automatically isolates emission source anomalies using advanced machine learning, and deploys legally binding automated compliance enforcement workflows through an autonomous multi-agent network across **277 Municipal Corporations in all 28 Indian States and Delhi UT**.
 
----
+## 2. Targeted Users
+*   **Municipal Command Directors (Clearance Level 4):** High-level regulatory officials (e.g., Dr. Abhijit K. Bhosale, IAS) managing city-wide environmental disaster strategies.
+*   **Field Enforcement Officers:** Field teams executing statutory site closures or inspection updates using augmented reality data overlays.
+*   **Audit Committees:** External legal and state boards verifying compliance dispatch logs using mathematically unalterable system metrics.
 
-## 1. Product Scope
-
-VayuSense provides environmental telemetry supervision, automated source attribution, ML-driven scenario simulations, compliance auditing, and secure administration settings for municipal environmental officers in the Mumbai Metropolitan Region (MMR).
-
----
-
-## 2. Implemented Route Architecture & Modules
-
-The platform is structured into five core administrative modules, accessed through the unified master layout shell:
-
-### A. Primary Overview Context (`/dashboard/home`)
-- **South Mumbai GIS Map Canvas**: A monochrome, vector-traced spatial base map with Uber H3 resolution-8 honeycomb hexagon cells. High-intensity sensor warning clusters (e.g., `MUM_042`) trigger pulsing neon alerts and detailed tooltips.
-- **Dynamic Telemetry Layer Selection**: Controls to toggle IoT Sensors, Satellite NO2 gas plumes, and active construction locations.
-- **Diagnostic Matrix Panel**:
-  - Live pollutant source attribution charts (Industrial vs. Construction vs. Diesel Fleet).
-  - 72-Hour Forecast (PM2.5) spline graph featuring red dashed EPA/Statutory air safety limit boundaries.
-  - Multi-Agent Reasoning Feed displaying scrolling execution logs of SensorAgent, SourceAttributionAgent, and ComplianceAgent.
-- **Dispatch Inspector CTA**: Generates a cryptographically sealed PDF evidence package containing telemetry indices, agent logs, and ledger status.
-
-### B. Geospatial Controls (`/dashboard/geospatial`)
-- **Dynamic Vector Layer Engine (`/dashboard/geospatial/vector`)**:
-  - Exposes PostgreSQL/PostGIS database spatial query engine logs (e.g., query execution speed, bounding boxes).
-  - Configures layer filters for CAAQS sensors, traffic grids, and factory perimeters.
-- **Satellite Ingestion Pipeline Sync (`/dashboard/geospatial/satellite`)**:
-  - Visualizes Sentinel-5P gas concentration raster heatmaps with active scanning overlays.
-  - Controls to manually trigger Sentinel Ingestion pipelines with asynchronous log ticks.
-
-### C. MLOps Center (`/dashboard/ml-ops`)
-- **Model Validation Analytics Terminal (`/dashboard/ml-ops/validation`)**:
-  - Monospace KPI cards for Predictive Precision (RMSE), R-Squared Accuracy, and Mean Absolute Error (MAE).
-  - Interactive XGBoost Ensemble training convergence chart with epoch-based cursor tooltips.
-- **Hyperlocal Scenario Sandbox (`/dashboard/ml-ops/sandbox`)**:
-  - Real-time simulation inputs for Traffic Gridlock Density, Industrial Emissions, and Wind Velocity.
-  - Dynamic mathematical formula models recalculating a 7-node projection curve to preview PM2.5 delta spikes.
-
-### D. Agentic Operations (`/dashboard/agent-logs`)
-- **Multi-Agent Network Topology Map (`/dashboard/agent-logs/topology`)**:
-  - Renders the node topology flow tracing execution handshakes between the SensorAgent, SourceAttributionAgent, and ComplianceAgent.
-  - Tracks live execution terminal status feeds.
-- **Regional Language Translation Hub (`/dashboard/agent-logs/translation`)**:
-  - Parallel translation engine converting statutory warning logs, notices, and warnings between English, Hindi, and Marathi.
-- **Immutable API System Log Exporter (`/dashboard/agent-logs/exporter`)**:
-  - Previews IoT telemetry streams and MLOps records.
-  - Packages and exports encrypted bundles using SHA-256 signatures and AES payload encryption.
-
-### E. System Settings (`/dashboard/settings`)
-- **Command Configuration Panel (`/dashboard/settings`)**:
-  - Calibration controls adjusting Critical AQI Breach triggers (Default: 200), PM2.5 ceilings (Default: 150 µg/m³), and sensor drift tolerances.
-  - Cryptographic visibility toggles for ESA Copernicus tokens and MPCB secret keys.
-  - Automated enforcement policy toggles: Strict Facial Consistency Mode (for AR Field Subsystems), Multi-Agent Compliance Filing, and Translation Cache Bypasses.
-- **Administrative Profile (`/dashboard/settings/profile`)**:
-  - Displays environment cell officer credentials, clearance ranks, and UID-882-BMC-IAS-2026 tokens.
-  - Workspace display selectors setting default operational viewports, data stream refresh frequencies, and glassmorphic overlay opacities.
-- **Statutory Compliance Guardrails Override (`/dashboard/agent-logs/override`)**:
-  - Secure panel enabling guardrail bypass operations (warning broadcasts, capping restrictions) using administrative code validation (`VAYU-2026`) and blockchain ledger syncs.
+## 3. Core Features Map
+*   **Pan-India Municipal Coverage:** Instant state and corporation selection covering all 28 Indian States (276 Corporations) + Delhi UT (MCD) with dynamic statutory PDF directory generation.
+*   **3 Major Emission Factor Source Attribution:** Real-time GeoJSON spatial overlays categorizing urban pollution sources:
+    1. **Industrial & Power Generation (50% Impact):** Yellow ▲ Triangle Zones ($\text{SO}_2, \text{NO}_x, \text{PM}_{2.5}, \text{Pb}$)
+    2. **Transportation & Vehicular Exhaust (30% Impact):** Cyan ● Circle Corridors ($\text{NO}_2$, Black Carbon)
+    3. **Construction & Road Dust (20% Impact):** Purple ■ Square Grids ($\text{PM}_{10}$)
+*   **Satellite Raster Integration:** Sentinel-5P satellite plume layer highlighted in Electric Indigo (`#6366f1`) with pulsing telemetry badges (`📡`).
+*   **Collapsible Big-Screen Map Viewport Controls:** Floating map control panel with interactive hamburger accordion toggle for big-screen GIS views.
+*   **Autonomous Multi-Agent Audit Operations:** Agentic workflow execution, SHA-256 cryptographically signed logs, multi-lingual translation engines, and downloadable official municipal evidence dispatch PDFs.

@@ -1,5 +1,0 @@
-import { redirect } from "next/navigation";
-
-export default function SandboxRedirect() {
-  redirect("/dashboard/ml-ops/sandbox");
-}

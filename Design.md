@@ -1,54 +1,22 @@
-# VayuSense - Design Tokens & Visual Specifications
+# Visual Interface Design Specifications
 
-This document defines the core tokens, colors, typography, glassmorphism specs, and styling guidelines implemented across VayuSense.
+## 1. Primary Colors & UI Theme (Glassmorphic Dark Variant)
+*   **Application Base Background:** Slate-950 (`#0f172a`)
+*   **Component Panel Containers:** Slate-900 with alpha opacity blur values (`bg-slate-900/90 backdrop-blur-md`)
+*   **Utility Outlines & Structural Dividers:** Sharp Slate-800 borders (`border-slate-800`)
+*   **Active Telemetry Metric Accents:** Neon Emerald Green (`#10b981`)
+*   **Cryptographic & Trace Code Accents:** Deep Cyan Monospace Monochromatic variables (`#22d3ee`)
 
----
+## 2. Emission Factor Color & Shape System
+*   **Industrial & Power Generation (~50%):** Bright Yellow (`#eab308` / `bg-yellow-400` / `text-yellow-400`) ▲ Triangle Polygon.
+*   **Transportation & Vehicular Exhaust (~30%):** Cyan (`#06b6d4` / `bg-cyan-400` / `text-cyan-400`) ● Circle Line Corridor.
+*   **Construction Dust (~20%):** Purple (`#a855f7` / `bg-purple-400` / `text-purple-400`) ■ Square Grid Polygon.
+*   **Sentinel-5P Satellite Plume:** Electric Indigo (`#6366f1` / `bg-indigo-500` / `text-indigo-400`) with `📡` pulsing badge.
 
-## 1. Design Aesthetic Core
+## 3. Map Control & Accordion Components
+*   **Header Bar:** Dark Slate-950 (`bg-slate-950/70`) with hover feedback, material symbols `menu` / `menu_open`, and accordion expansion arrows.
+*   **Boundary Outlines:** Dotted outer glow with dashed stroke matching AQI hazard status (Red `#ef4444`, Amber `#f59e0b`, Green `#10b981`).
 
-VayuSense is designed as a high-fidelity, military-grade dark command center. It uses subtle borders, scanning animations, glassmorphism panels, and high-visibility status indicators.
-
----
-
-## 2. Color Palette & Tokens
-
-VayuSense utilizes Tailwind CSS mapped to the following specific color tokens:
-
-### A. Base Neutral System
-- **Background Base Layer**: Slate-950 (`#0f172a` / `#0e1511`)
-- **Panel Containers**: Slate-900 (`#1e293b` / `#111827`) with transparent opacity values (`/40` or `/50`).
-- **Divider Borders**: Slate-800 (`#1f2937` / `#3c4a42`)
-
-### B. High-Visibility Accent Highlights
-- **Primary / Active Accent**: Emerald-500 / Primary (`#4edea3` / `#10b981`)
-- **Information / Secure Cyan**: Cyan-400 (`#00e5ff` / `#06b6d4`)
-- **Warning / Critical Pulse**: Red-500 (`#ef4444`)
-- **Warning / Alert Amber**: Amber-500 (`#f59e0b`)
-
----
-
-## 3. Glassmorphic Properties
-
-All dashboard dashboard layouts use a standard CSS glass overlay layout for panels:
-
-```css
-.glass-panel {
-    background: rgba(15, 23, 42, 0.4);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(51, 65, 85, 0.4);
-}
-```
-
-This ensures panels blend into the dark background grid while maintaining readable content layers.
-
----
-
-## 4. Typography Mapping
-
-| Font Family | Applied Elements | Font Style |
-| :--- | :--- | :--- |
-| **Inter** | Titles, labels, navigation, button texts, general copy | Sans-serif UI, Clean |
-| **JetBrains Mono** | Coordinates, hashes, tokens, raw logs, JSON outputs, numeric data | Monospace, Scannable |
-
-- **Spacing Specifications**: Monospace telemetry lines use `tracking-tight` or `tracking-wide` configurations to preserve horizontal alignment inside terminals.
-- **Font Sizes**: System headers use standard sizes (e.g. `headline-lg` at 32px or `headline-md` at 24px), while telemetry and telemetry metrics use `text-xs` or `text-sm` for details.
+## 4. Typography & Fonts
+*   **Interface Header Elements:** Clean, highly readable sans-serif layout titles with tight tracking (`tracking-tight font-bold text-slate-100`).
+*   **Data Ledger Matrix Tables & Transaction Logs:** Strict monospace structural formatting (`font-mono text-xs tracking-wider`).
