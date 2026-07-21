@@ -120,6 +120,7 @@ export default function GeospatialDataControls() {
       mapRef.current = mapInstance;
 
       mapInstance.on('style.load', () => {
+        mapInstance.resize();
         setupMapLayers(mapInstance);
         if (activeCorpRef.current) {
           renderCorpBoundary(mapInstance, activeCorpRef.current);

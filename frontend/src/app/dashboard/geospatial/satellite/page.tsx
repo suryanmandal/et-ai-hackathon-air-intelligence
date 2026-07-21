@@ -76,6 +76,7 @@ export default function SatelliteIngestionSync() {
       });
 
       mapInstance.on("load", () => {
+        mapInstance.resize();
         if (activeCorpRef.current) {
           renderCorpBoundary(mapInstance, activeCorpRef.current);
         }

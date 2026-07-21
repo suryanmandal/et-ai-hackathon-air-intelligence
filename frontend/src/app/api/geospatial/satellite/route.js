@@ -5,21 +5,18 @@ export const dynamic = 'force-dynamic';
 /**
  * Exchange CDSE OIDC Username/Password credentials for an Access Token.
  */
+/**
+ * Exchange Copernicus / Sentinel Hub Client Credentials for an Access Token.
+ */
 async function getCopernicusToken() {
-  const username = process.env.COPERNICUS_USERNAME;
-  const password = process.env.COPERNICUS_PASSWORD;
-  const clientId = process.env.COPERNICUS_CLIENT_ID || 'cdse-public';
-  const tokenUrl = process.env.COPERNICUS_TOKEN_URL || 'https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token';
-
-  if (!username || !password) {
-    throw new Error("Missing COPERNICUS_USERNAME or COPERNICUS_PASSWORD in environment configuration.");
-  }
+  const clientId = process.env.COPERNICUS_CLIENT_ID || 'sh-f7f5befd-b5e7-4bb9-b3a1-ef93d7cf3a8a';
+  const clientSecret = process.env.COPERNICUS_CLIENT_SECRET || 'y3ER8hsSK9G6TeaLgYwM5ybm0WUVtj6P';
+  const tokenUrl = process.env.COPERNICUS_SENTINEL_HUB_TOKEN_URL || 'https://services.sentinel-hub.com/oauth/token';
 
   const params = new URLSearchParams();
   params.append('client_id', clientId);
-  params.append('username', username);
-  params.append('password', password);
-  params.append('grant_type', 'password');
+  params.append('client_secret', clientSecret);
+  params.append('grant_type', 'client_credentials');
 
   const response = await fetch(tokenUrl, {
     method: 'POST',
@@ -31,8 +28,27 @@ async function getCopernicusToken() {
   });
 
   if (!response.ok) {
-    const errText = await response.text();
-    throw new Error(`OIDC Token exchange failed (${response.status}): ${errText}`);
+    // Fallback to CDSE token endpoint if Sentinel Hub service URL returns non-200
+    const cdseTokenUrl = process.env.COPERNICUS_TOKEN_URL || 'https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token';
+    const cdseParams = new URLSearchParams();
+    cdseParams.append('client_id', clientId);
+    cdseParams.append('client_secret', clientSecret);
+    cdseParams.append('grant_type', 'client_credentials');
+
+    const cdseRes = await fetch(cdseTokenUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: cdseParams,
+      next: { revalidate: 0 }
+    });
+
+    if (!cdseRes.ok) {
+      const errText = await cdseRes.text();
+      throw new Error(`Copernicus OAuth Token exchange failed (${cdseRes.status}): ${errText}`);
+    }
+
+    const cdsePayload = await cdseRes.json();
+    return cdsePayload.access_token;
   }
 
   const payload = await response.json();

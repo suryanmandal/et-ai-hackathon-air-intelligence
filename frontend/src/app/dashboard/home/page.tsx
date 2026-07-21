@@ -329,6 +329,7 @@ export default function MainControlRoom() {
       });
 
       mapInstance.on("load", () => {
+        mapInstance.resize();
         if (activeCorpRef.current) {
           renderCorpBoundary(mapInstance, activeCorpRef.current);
         }
