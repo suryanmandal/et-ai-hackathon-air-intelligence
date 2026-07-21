@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
 
     # Database Configuration
+    DATABASE_URL: str = Field(default="", validation_alias="DATABASE_URL")
     DB_HOST: str = Field(default="localhost", validation_alias="DB_HOST")
     DB_PORT: int = Field(default=5432, validation_alias="DB_PORT")
     DB_USER: str = Field(default="admin", validation_alias="DB_USER")
@@ -31,6 +32,11 @@ class Settings(BaseSettings):
         """
         Get synchronous database URL for psycopg2/SQLAlchemy.
         """
+        if self.DATABASE_URL:
+            url = self.DATABASE_URL
+            if url.startswith("postgres://"):
+                return url.replace("postgres://", "postgresql://", 1)
+            return url
         return f"postgresql://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
 
     @property
@@ -38,6 +44,13 @@ class Settings(BaseSettings):
         """
         Get asynchronous database URL if asyncpg is used.
         """
+        if self.DATABASE_URL:
+            url = self.DATABASE_URL
+            if url.startswith("postgres://"):
+                url = url.replace("postgres://", "postgresql+asyncpg://", 1)
+            elif url.startswith("postgresql://") and not url.startswith("postgresql+asyncpg://"):
+                url = url.replace("postgresql://", "postgresql+asyncpg://", 1)
+            return url
         return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
 
 settings = Settings()
