@@ -59,8 +59,7 @@ export default function HyperlocalScenarioSandbox() {
       try {
         const trafficScalar = 1.0 + (trafficDensity / 100);
         const industrialScalar = 1.0 + (industrialOutput / 100);
-        const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000";
-        const res = await fetch(`${API_BASE}/api/v1/predict/scenario`, {
+        const res = await fetch("http://127.0.0.1:8000/api/v1/predict/scenario", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

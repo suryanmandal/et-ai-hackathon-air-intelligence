@@ -26,6 +26,9 @@ export default function MainControlRoom() {
     industrialZone: true,
     trafficCorridor: true,
     constructionZone: true,
+    o3Plume: false,
+    coGas: false,
+    nh3Agri: false,
   });
 
   // Timeline playback state
@@ -615,6 +618,18 @@ export default function MainControlRoom() {
     doc.setFontSize(7);
     doc.text("STATUTORY ACTION ACTIVE", 143, 74);
 
+    // Section 1.5: Statutory Compliance Checks
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(15, 23, 42);
+    doc.text("STATUTORY COMPLIANCE STANDARDS (CPCB NAAQS)", 14, 88);
+    
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "normal");
+    doc.text("- O3 Standard: 100 ug/m3 (8-hr)", 14, 93);
+    doc.text("- CO Standard: 2.0 mg/m3 (8-hr)", 80, 93);
+    doc.text("- NH3 Standard: 400 ug/m3 (24-hr)", 146, 93);
+
     // Section 2: Visual Source Attribution Breakdown (3 Major Factors)
     doc.setFontSize(10);
     doc.setFont("helvetica", "bold");
@@ -847,6 +862,42 @@ export default function MainControlRoom() {
                   </div>
                 </label>
 
+                {/* O3 Plume */}
+                <label className="flex items-center justify-between cursor-pointer group">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-blue-400 flex items-center justify-center text-[7px] text-white">☁</span>
+                    <span className="text-xs font-semibold text-blue-300 group-hover:text-blue-200 transition-colors">O3 Plume Layer</span>
+                  </div>
+                  <div className="relative" onClick={(e) => { e.stopPropagation(); handleLayerToggle("o3Plume"); }}>
+                    <div className={`block w-8 h-4 rounded-full transition-colors ${layers.o3Plume ? 'bg-blue-400' : 'bg-slate-800 border border-slate-700'}`}></div>
+                    <div className={`dot absolute top-0.5 bg-white w-3 h-3 rounded-full transition-transform ${layers.o3Plume ? 'translate-x-4' : 'translate-x-0.5'}`}></div>
+                  </div>
+                </label>
+                
+                {/* CO Gas Stream */}
+                <label className="flex items-center justify-between cursor-pointer group">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-orange-500 flex items-center justify-center text-[7px] text-white">💨</span>
+                    <span className="text-xs font-semibold text-orange-400 group-hover:text-orange-300 transition-colors">CO Gas Stream Layer</span>
+                  </div>
+                  <div className="relative" onClick={(e) => { e.stopPropagation(); handleLayerToggle("coGas"); }}>
+                    <div className={`block w-8 h-4 rounded-full transition-colors ${layers.coGas ? 'bg-orange-500' : 'bg-slate-800 border border-slate-700'}`}></div>
+                    <div className={`dot absolute top-0.5 bg-white w-3 h-3 rounded-full transition-transform ${layers.coGas ? 'translate-x-4' : 'translate-x-0.5'}`}></div>
+                  </div>
+                </label>
+                
+                {/* NH3 Agri Readings */}
+                <label className="flex items-center justify-between cursor-pointer group">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 flex items-center justify-center text-[7px] text-white">🌿</span>
+                    <span className="text-xs font-semibold text-emerald-400 group-hover:text-emerald-300 transition-colors">NH3 Agricultural Layer</span>
+                  </div>
+                  <div className="relative" onClick={(e) => { e.stopPropagation(); handleLayerToggle("nh3Agri"); }}>
+                    <div className={`block w-8 h-4 rounded-full transition-colors ${layers.nh3Agri ? 'bg-emerald-500' : 'bg-slate-800 border border-slate-700'}`}></div>
+                    <div className={`dot absolute top-0.5 bg-white w-3 h-3 rounded-full transition-transform ${layers.nh3Agri ? 'translate-x-4' : 'translate-x-0.5'}`}></div>
+                  </div>
+                </label>
+
                 {/* Instructing Shape & Color Legend Box */}
                 <div className="mt-2 pt-2 border-t border-slate-800 flex flex-col gap-1.5 font-mono text-[10px]">
                   <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Emission Factor Key & Shape Guide</span>
@@ -981,6 +1032,33 @@ export default function MainControlRoom() {
                 Cell: MUM_042
               </span>
               <span className="text-xs text-slate-400 font-semibold">Focus Area Isolation</span>
+            </div>
+          </div>
+
+          {/* Live Telemetry Gauges */}
+          <div className="bg-slate-900 border border-[#3c4a42]/20 rounded flex flex-col p-3 mb-1">
+            <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-left">Live Readings (µg/m³ unless noted)</h3>
+            <div className="grid grid-cols-5 gap-2">
+               <div className="flex flex-col items-center justify-center bg-slate-950 border border-slate-800 p-1.5 rounded">
+                 <span className="text-[9px] text-slate-500 font-bold mb-0.5">PM2.5</span>
+                 <span className="text-red-400 font-mono font-bold text-[11px]">184</span>
+               </div>
+               <div className="flex flex-col items-center justify-center bg-slate-950 border border-slate-800 p-1.5 rounded">
+                 <span className="text-[9px] text-slate-500 font-bold mb-0.5">PM10</span>
+                 <span className="text-amber-500 font-mono font-bold text-[11px]">260</span>
+               </div>
+               <div className="flex flex-col items-center justify-center bg-slate-950 border border-slate-800 p-1.5 rounded">
+                 <span className="text-[9px] text-slate-500 font-bold mb-0.5">O3</span>
+                 <span className="text-[#10b981] font-mono font-bold text-[11px]">64</span>
+               </div>
+               <div className="flex flex-col items-center justify-center bg-slate-950 border border-slate-800 p-1.5 rounded">
+                 <span className="text-[9px] text-slate-500 font-bold mb-0.5">CO</span>
+                 <span className="text-[#10b981] font-mono font-bold text-[11px]">1.1</span>
+               </div>
+               <div className="flex flex-col items-center justify-center bg-slate-950 border border-slate-800 p-1.5 rounded">
+                 <span className="text-[9px] text-slate-500 font-bold mb-0.5">NH3</span>
+                 <span className="text-[#10b981] font-mono font-bold text-[11px]">110</span>
+               </div>
             </div>
           </div>
 

@@ -17,6 +17,9 @@ export default function GeospatialDataControls() {
   const [trafficGrids, setTrafficGrids] = useState(false);
   const [factoryPerimeters, setFactoryPerimeters] = useState(true);
   const [sentinelPlume, setSentinelPlume] = useState(false);
+  const [o3Plume, setO3Plume] = useState(false);
+  const [coGas, setCoGas] = useState(false);
+  const [nh3Agri, setNh3Agri] = useState(false);
 
   // Active Map style
   const [activeStyle, setActiveStyle] = useState<"monochrome" | "satellite" | "hybrid">("monochrome");
@@ -521,6 +524,36 @@ export default function GeospatialDataControls() {
               <span className="text-xs font-semibold text-slate-300">Sentinel-5P Tropospheric Column</span>
               <div className={`w-8 h-4 border rounded-full relative transition-colors ${sentinelPlume ? 'bg-primary/30 border-primary' : 'bg-slate-950 border-slate-700'}`}>
                 <div className={`absolute top-0.5 w-2.5 h-2.5 rounded-full transition-all ${sentinelPlume ? 'right-0.5 bg-primary' : 'left-0.5 bg-slate-500'}`}></div>
+              </div>
+            </div>
+
+            <div 
+              onClick={() => setO3Plume(!o3Plume)}
+              className={`flex items-center justify-between p-2 hover:bg-slate-800 transition-colors group cursor-pointer ${!o3Plume ? 'opacity-45' : ''}`}
+            >
+              <span className="text-xs font-semibold text-slate-300">Sentinel-5P O3 Plume</span>
+              <div className={`w-8 h-4 border rounded-full relative transition-colors ${o3Plume ? 'bg-primary/30 border-primary' : 'bg-slate-950 border-slate-700'}`}>
+                <div className={`absolute top-0.5 w-2.5 h-2.5 rounded-full transition-all ${o3Plume ? 'right-0.5 bg-primary' : 'left-0.5 bg-slate-500'}`}></div>
+              </div>
+            </div>
+
+            <div 
+              onClick={() => setCoGas(!coGas)}
+              className={`flex items-center justify-between p-2 hover:bg-slate-800 transition-colors group cursor-pointer ${!coGas ? 'opacity-45' : ''}`}
+            >
+              <span className="text-xs font-semibold text-slate-300">Sentinel-5P CO Gas</span>
+              <div className={`w-8 h-4 border rounded-full relative transition-colors ${coGas ? 'bg-primary/30 border-primary' : 'bg-slate-950 border-slate-700'}`}>
+                <div className={`absolute top-0.5 w-2.5 h-2.5 rounded-full transition-all ${coGas ? 'right-0.5 bg-primary' : 'left-0.5 bg-slate-500'}`}></div>
+              </div>
+            </div>
+
+            <div 
+              onClick={() => setNh3Agri(!nh3Agri)}
+              className={`flex items-center justify-between p-2 hover:bg-slate-800 transition-colors group cursor-pointer ${!nh3Agri ? 'opacity-45' : ''}`}
+            >
+              <span className="text-xs font-semibold text-slate-300">Agricultural NH3 Readings</span>
+              <div className={`w-8 h-4 border rounded-full relative transition-colors ${nh3Agri ? 'bg-primary/30 border-primary' : 'bg-slate-950 border-slate-700'}`}>
+                <div className={`absolute top-0.5 w-2.5 h-2.5 rounded-full transition-all ${nh3Agri ? 'right-0.5 bg-primary' : 'left-0.5 bg-slate-500'}`}></div>
               </div>
             </div>
 
