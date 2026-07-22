@@ -15,7 +15,8 @@ interface SubOption {
 
 const SUB_OPTIONS: Record<string, SubOption[]> = {
   overview: [
-    { name: "Main Control Room", route: "/dashboard/home", icon: "space_dashboard" }
+    { name: "Main Control Room", route: "/dashboard/home", icon: "space_dashboard" },
+    { name: "Developer & API Hub Portal", route: "/dashboard/docs", icon: "menu_book" }
   ],
   geospatial: [
     { name: "Dynamic Vector Layer Engine", route: "/dashboard/geospatial/vector", icon: "layers" },
@@ -140,6 +141,7 @@ function SystemSearchBar() {
 
   const systemPages = useMemo(() => [
     { name: "Main Control Room Overview", route: "/dashboard/home", icon: "space_dashboard", category: "Dashboard" },
+    { name: "Developer & API Hub Portal", route: "/dashboard/docs", icon: "menu_book", category: "Documentation" },
     { name: "Dynamic Vector Layer Engine", route: "/dashboard/geospatial/vector", icon: "layers", category: "Geospatial" },
     { name: "Satellite Ingestion Pipeline Sync", route: "/dashboard/geospatial/satellite", icon: "satellite", category: "Geospatial" },
     { name: "Model Validation Analytics Terminal", route: "/dashboard/ml-ops/validation", icon: "analytics", category: "MLOps" },
