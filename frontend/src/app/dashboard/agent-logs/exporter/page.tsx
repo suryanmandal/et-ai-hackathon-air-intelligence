@@ -59,29 +59,8 @@ export default function LogExporter() {
     return "0x" + Math.abs(hash).toString(16).padStart(8, '0') + "ea195be893bc43ddaa728bf80f682d3345ce2810a9cf" + Math.floor(Math.random() * 9000 + 1000);
   };
 
-  const handleExport = () => {
-    setIsExporting(true);
-    setExportProgress(0);
-    
-    // Simulate compilation pipeline
-    const interval = setInterval(() => {
-      setExportProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          const rawString = JSON.stringify(MOCK_LOGS[selectedSource]);
-          setShaHash(generateChecksum(rawString));
-          setTxHash("0x" + Math.floor(Math.random() * 10000000).toString(16) + "e81d4a82dfbc8813bcda41e8cba9a");
-          setIsExporting(false);
-          setShowResultModal(true);
-          return 100;
-        }
-        return prev + 20;
-      });
-    }, 300);
-  };
-
-  const handleDownload = () => {
-    if (exportFormat === "pdf") {
+  const downloadReport = (format: string, source: string, sha: string, tx: string) => {
+    if (format === "pdf") {
       const doc = new jsPDF({
         orientation: "portrait",
         unit: "mm",
@@ -160,13 +139,13 @@ export default function LogExporter() {
       doc.text("Audit Log Integrity Hash:", 20, 108);
 
       doc.setFont("helvetica", "bold");
-      doc.text(selectedSource.toUpperCase() + " LOGS", 65, 87);
-      doc.text(String(MOCK_LOGS[selectedSource].length) + " operational rows", 65, 94);
+      doc.text(source.toUpperCase() + " LOGS", 65, 87);
+      doc.text(String(MOCK_LOGS[source].length) + " operational rows", 65, 94);
       doc.setFont("courier", "bold");
       doc.setFontSize(8.5);
       doc.setTextColor(accentColor);
-      doc.text(txHash.substring(0, 35) + "...", 65, 101);
-      doc.text(shaHash.substring(0, 35) + "...", 65, 108);
+      doc.text(tx.substring(0, 35) + "...", 65, 101);
+      doc.text(sha.substring(0, 35) + "...", 65, 108);
 
       // Section 2: Log Trail Records Table
       doc.setFont("helvetica", "bold");
@@ -175,7 +154,7 @@ export default function LogExporter() {
       doc.text("2. REGISTERED AUDIT LOGS LEDGER", 15, 128);
 
       let logY = 135;
-      const logs = MOCK_LOGS[selectedSource];
+      const logs = MOCK_LOGS[source];
       logs.forEach((log) => {
         // Draw individual record box
         doc.setFillColor("#090d16");
@@ -201,11 +180,10 @@ export default function LogExporter() {
       doc.setFont("helvetica", "normal");
       doc.setFontSize(7.5);
       doc.setTextColor(textMuted);
-      doc.text(`VERIFICATION CHECKSUM HASH: SHA256//${shaHash}`, 15, 275);
+      doc.text(`VERIFICATION CHECKSUM HASH: SHA256//${sha}`, 15, 275);
       doc.text("LEGAL DISCLAIMER: Non-repudiated log export generated automatically under regulatory framework section 42/a.", 15, 281);
 
-      doc.save(`VayuSense_${selectedSource}_Cryptographic_Report_${Date.now()}.pdf`);
-      setShowResultModal(false);
+      doc.save(`VayuSense_${source}_Cryptographic_Report_${Date.now()}.pdf`);
       return;
     }
 
@@ -213,20 +191,51 @@ export default function LogExporter() {
       JSON.stringify({
         exportMeta: {
           timestamp: new Date().toISOString(),
-          format: exportFormat,
-          integrityHash: shaHash,
-          govchainTx: txHash,
-          recordsCount: MOCK_LOGS[selectedSource].length
+          format: format,
+          integrityHash: sha,
+          govchainTx: tx,
+          recordsCount: MOCK_LOGS[source].length
         },
-        logs: MOCK_LOGS[selectedSource]
+        logs: MOCK_LOGS[source]
       }, null, 2)
     );
     const downloadAnchor = document.createElement("a");
     downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", `vayusense_${selectedSource}_export.${exportFormat}`);
+    downloadAnchor.setAttribute("download", `vayusense_${source}_export.${format}`);
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
     downloadAnchor.remove();
+  };
+
+  const handleExport = () => {
+    setIsExporting(true);
+    setExportProgress(0);
+    
+    // Simulate compilation pipeline
+    const interval = setInterval(() => {
+      setExportProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          const rawString = JSON.stringify(MOCK_LOGS[selectedSource]);
+          const sha = generateChecksum(rawString);
+          const tx = "0x" + Math.floor(Math.random() * 10000000).toString(16) + "e81d4a82dfbc8813bcda41e8cba9a";
+          
+          setShaHash(sha);
+          setTxHash(tx);
+          setIsExporting(false);
+          setShowResultModal(true);
+          
+          // Trigger the download automatically at 100% progress completion
+          downloadReport(exportFormat, selectedSource, sha, tx);
+          return 100;
+        }
+        return prev + 20;
+      });
+    }, 300);
+  };
+
+  const handleDownload = () => {
+    downloadReport(exportFormat, selectedSource, shaHash, txHash);
     setShowResultModal(false);
   };
 
