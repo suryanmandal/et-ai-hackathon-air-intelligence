@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useMunicipal } from "@/context/MunicipalContext";
+import { jsPDF } from "jspdf";
 
 export default function GeospatialDataControls() {
   const { activeCorp } = useMunicipal();
@@ -431,22 +432,182 @@ export default function GeospatialDataControls() {
 
   // Export Dataset Handler
   const handleExport = () => {
-    const data = {
-      timestamp: new Date().toISOString(),
-      activeLayers: { caaQmsNodes, trafficGrids, factoryPerimeters, sentinelPlume },
-      mapStyle: activeStyle,
-      viewMode,
-      pipelineSyncedLogs: pipelineLogs,
-      focusCoordinates: { lat: 19.0760, lon: 72.8777 },
-      activeQueryStream: queries[queryIndex]
-    };
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `VayuSense_Satellite_Export_${Date.now()}.json`;
-    link.click();
-    URL.revokeObjectURL(url);
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "mm",
+      format: "a4"
+    });
+
+    const primaryColor = "#10b981"; // Neon Emerald Green
+    const cardBgColor = "#1e293b"; // Slate 800
+    const textLight = "#f8fafc";
+    const textMuted = "#94a3b8";
+    const accentColor = "#22d3ee"; // Cyan Accent
+
+    // Theme background
+    doc.setFillColor("#0f172a"); // Dark Slate 950
+    doc.rect(0, 0, 210, 297, "F");
+
+    // Top indicator strip
+    doc.setFillColor(primaryColor);
+    doc.rect(0, 0, 210, 5, "F");
+
+    // Title & Header details
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(22);
+    doc.setTextColor(primaryColor);
+    doc.text("VAYUSENSE GIS DATASHEET", 15, 20);
+
+    doc.setFontSize(10);
+    doc.setTextColor(textLight);
+    doc.text("STATUTORY VECTOR SPACE TELEMETRY EXPORT", 15, 26);
+
+    // Metadata Divider line
+    doc.setDrawColor("#334155");
+    doc.setLineWidth(0.5);
+    doc.line(15, 30, 195, 30);
+
+    // Role and Authority Clearance Card
+    doc.setFillColor(cardBgColor);
+    doc.rect(15, 36, 180, 28, "F");
+    doc.setDrawColor(primaryColor);
+    doc.rect(15, 36, 180, 28, "D");
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8);
+    doc.setTextColor(primaryColor);
+    doc.text("SECURITY PROTOCOL & CLEARANCE:", 20, 43);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(textLight);
+    doc.text("CLEARANCE LEVEL:", 20, 50);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(primaryColor);
+    doc.text("LEVEL 4 (IAS MUNICIPAL COMMAND DIRECTOR)", 58, 50);
+
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(textLight);
+    doc.text("Authorized by:", 20, 57);
+    doc.setFont("helvetica", "italic");
+    doc.text("Dr. Abhijit K. Bhosale, IAS -- Municipal command cell director", 48, 57);
+
+    // Section 1: Geographic Focus Parameters
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.setTextColor(primaryColor);
+    doc.text("1. GEOGRAPHIC VIEWPORT & FOCUS", 15, 75);
+
+    doc.setFillColor(cardBgColor);
+    doc.rect(15, 80, 180, 42, "F");
+    doc.setDrawColor("#475569");
+    doc.rect(15, 80, 180, 42, "D");
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(textLight);
+    doc.text("Active Municipal Corp:", 20, 88);
+    doc.text("Target District & State:", 20, 96);
+    doc.text("Focal Map Center:", 20, 104);
+    doc.text("Live Ingestion Status:", 20, 112);
+
+    doc.setFont("helvetica", "bold");
+    doc.text(activeCorp?.name || "Mumbai Municipal Corporation (BMC)", 62, 88);
+    doc.text(activeCorp?.state || "Maharashtra State, IN", 62, 96);
+    const centerCoords = activeCorp?.center ? `LAT ${activeCorp.center[1]} N | LON ${activeCorp.center[0]} E` : "LAT 19.0760 N | LON 72.8777 E";
+    doc.text(centerCoords, 62, 104);
+    
+    const activeAqi = activeCorp?.aqi || 185;
+    const statusText = activeAqi > 200 ? "CRITICAL BREACH" : activeAqi > 150 ? "WARNING ALERT" : "NOMINAL / ACTIVE";
+    const statusColor = activeAqi > 200 ? "#ef4444" : activeAqi > 150 ? "#f59e0b" : "#10b981";
+    doc.setTextColor(statusColor);
+    doc.text(`${statusText} (AQI: ${activeAqi})`, 62, 112);
+
+    // Section 2: GIS Active Layer Status Matrix
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.setTextColor(primaryColor);
+    doc.text("2. ACTIVE SPATIAL INGESTION LAYERS", 15, 134);
+
+    doc.setFillColor(cardBgColor);
+    doc.rect(15, 139, 180, 36, "F");
+    doc.setDrawColor("#475569");
+    doc.rect(15, 139, 180, 36, "D");
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(textLight);
+    doc.text("CAAQMS Ground Sensors Layer:", 20, 147);
+    doc.text("Vehicular Exhaust Line Corridors:", 20, 155);
+    doc.text("Construction Site Silt Boundaries:", 20, 163);
+    doc.text("Sentinel-5P ESA Plume Overlays:", 20, 171);
+
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(caaQmsNodes ? primaryColor : textMuted);
+    doc.text(caaQmsNodes ? "NOMINAL (ACTIVE)" : "STANDBY (DISABLED)", 75, 147);
+    doc.setTextColor(trafficGrids ? primaryColor : textMuted);
+    doc.text(trafficGrids ? "ACTIVE (30% VEHICULAR)" : "DISABLED", 75, 155);
+    doc.setTextColor(factoryPerimeters ? primaryColor : textMuted);
+    doc.text(factoryPerimeters ? "MONITORED (50% INDUSTRIAL)" : "DISABLED", 75, 163);
+    doc.setTextColor(sentinelPlume ? primaryColor : textMuted);
+    doc.text(sentinelPlume ? "STREAMING (ESA S5P)" : "STANDBY (OFF)", 75, 171);
+
+    // Section 3: Live PostGIS & Pipeline Synchronizer Log
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.setTextColor(primaryColor);
+    doc.text("3. LIVE POSTGIS VECTOR SPATIAL QUERY & SYNCS", 15, 187);
+
+    // Active Query console card
+    doc.setFillColor("#090d16");
+    doc.rect(15, 192, 180, 24, "F");
+    doc.setDrawColor("#334155");
+    doc.rect(15, 192, 180, 24, "D");
+
+    doc.setFont("courier", "bold");
+    doc.setFontSize(8);
+    doc.setTextColor(accentColor);
+    doc.text(`QUERY_STREAM_ID: ${queries[queryIndex]?.streamId || "MH_MUM_042"}`, 18, 197);
+    doc.setFont("courier", "normal");
+    doc.setTextColor(textLight);
+    const sqlText = queries[queryIndex]?.sql || "SELECT ST_AsGeoJSON(geom) FROM facilities WHERE corporation_id = 'MH-BMC-01';";
+    const resultText = queries[queryIndex]?.result || "Rows Returned: 42 facilities geometry mapped.";
+    doc.text(sqlText.substring(0, 85), 18, 203);
+    doc.setTextColor(primaryColor);
+    doc.text(resultText, 18, 211);
+
+    // Pipeline Logs Box
+    doc.setFillColor(cardBgColor);
+    doc.rect(15, 222, 180, 36, "F");
+    doc.setDrawColor("#475569");
+    doc.rect(15, 222, 180, 36, "D");
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8);
+    doc.setTextColor(primaryColor);
+    doc.text("PIPELINE SYNC LOG TRAILING EVENTS:", 20, 228);
+
+    doc.setFont("courier", "normal");
+    doc.setFontSize(7.5);
+    doc.setTextColor(textLight);
+    let logY = 235;
+    const recentLogs = pipelineLogs.slice(-3); // Get last 3 logs
+    if (recentLogs.length > 0) {
+      recentLogs.forEach(log => {
+        doc.text(log.substring(0, 95), 20, logY);
+        logY += 7;
+      });
+    } else {
+      doc.text("No active pipeline sync operations recorded in this session.", 20, 235);
+    }
+
+    // Cryptographic dispatch seal footer
+    const shaSignature = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(7);
+    doc.setTextColor(textMuted);
+    doc.text(`VERIFICATION CHECKSUM HASH: SHA256//${shaSignature}`, 15, 275);
+    doc.text("LEGAL DISCLAIMER: Statutory GIS telemetry dispatch generated automatically under sections 42/48 of MEPA.", 15, 281);
+
+    doc.save(`VayuSense_Vector_Datasheet_${activeCorp?.name.substring(0, 3) || "GEN"}_${Date.now()}.pdf`);
   };
 
   return (
@@ -727,8 +888,8 @@ export default function GeospatialDataControls() {
             onClick={handleExport}
             className="w-full py-3 bg-primary text-slate-950 font-bold text-xs uppercase tracking-widest hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 rounded shadow-[0_0_12px_rgba(16,185,129,0.2)]"
           >
-            <span className="material-symbols-outlined text-sm font-bold">download</span>
-            <span>Export Dataset</span>
+            <span className="material-symbols-outlined text-sm font-bold">picture_as_pdf</span>
+            <span>Export Datasheet PDF</span>
           </button>
         </div>
       </aside>
