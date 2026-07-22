@@ -34,17 +34,15 @@ function CodeSnippetBlock({ title, curlCode, pythonCode }: CodeSnippetProps) {
           <div className="flex bg-slate-950 p-0.5 rounded border border-slate-800 text-[11px] font-mono">
             <button
               onClick={() => setActiveLanguage("python")}
-              className={`px-2.5 py-0.5 rounded transition-colors ${
-                activeLanguage === "python" ? "bg-blue-600 text-white font-bold" : "text-slate-400 hover:text-white"
-              }`}
+              className={`px-2.5 py-0.5 rounded transition-colors ${activeLanguage === "python" ? "bg-blue-600 text-white font-bold" : "text-slate-400 hover:text-white"
+                }`}
             >
               Python
             </button>
             <button
               onClick={() => setActiveLanguage("curl")}
-              className={`px-2.5 py-0.5 rounded transition-colors ${
-                activeLanguage === "curl" ? "bg-blue-600 text-white font-bold" : "text-slate-400 hover:text-white"
-              }`}
+              className={`px-2.5 py-0.5 rounded transition-colors ${activeLanguage === "curl" ? "bg-blue-600 text-white font-bold" : "text-slate-400 hover:text-white"
+                }`}
             >
               cURL
             </button>
@@ -96,7 +94,7 @@ export default function SnapStyleDocsPortalPage() {
       const industrialImpact = industrialDelta * 75.0;
       const windImpact = (windSpeed - 2.0) * -8.0;
       const predicted = Math.max(45.0, Math.round((baseline + trafficImpact + industrialImpact + windImpact) * 10) / 10);
-      
+
       setApiResponse({
         status: "SUCCESS",
         corporation_id: "MH-BMC-01",
@@ -280,7 +278,7 @@ export default function SnapStyleDocsPortalPage() {
 
   return (
     <div className="flex flex-col h-full w-full bg-[#0B0F17] text-slate-200 font-sans overflow-hidden">
-      
+
       {/* 1. TOP NAVBAR (Snapchat Developer Portal Style) */}
       <header className="h-14 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 flex items-center justify-between px-6 shrink-0 z-20">
         <div className="flex items-center gap-6">
@@ -354,7 +352,7 @@ export default function SnapStyleDocsPortalPage() {
 
         {/* PANE 1: LEFT SIDEBAR NAVIGATION */}
         <aside className="w-72 bg-[#0d121d] border-r border-slate-800 flex flex-col shrink-0 overflow-y-auto custom-scrollbar p-4 space-y-6 text-xs">
-          
+
           <div className="px-2 py-1 bg-slate-900/80 border border-slate-800 rounded-lg flex items-center justify-between">
             <span className="font-mono text-[11px] text-slate-400">Documentation Version</span>
             <span className="font-mono font-bold text-blue-400 text-[10px] bg-blue-500/10 px-1.5 py-0.5 rounded border border-blue-500/20">v2026.1</span>
@@ -390,11 +388,10 @@ export default function SnapStyleDocsPortalPage() {
                   <button
                     key={item.id}
                     onClick={() => setActiveSection(item.id)}
-                    className={`w-full text-left px-3 py-1.5 rounded-md transition-all flex items-center justify-between text-xs ${
-                      isSelected
-                        ? "bg-blue-600/15 text-blue-400 font-bold border-l-2 border-blue-500 pl-2.5"
-                        : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/50"
-                    }`}
+                    className={`w-full text-left px-3 py-1.5 rounded-md transition-all flex items-center justify-between text-xs ${isSelected
+                      ? "bg-blue-600/15 text-blue-400 font-bold border-l-2 border-blue-500 pl-2.5"
+                      : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/50"
+                      }`}
                   >
                     <span className="truncate">{item.label}</span>
                     {item.hasChevron && (
@@ -472,7 +469,7 @@ export default function SnapStyleDocsPortalPage() {
                     </span>
                     <span className="text-[10px] bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded border border-blue-500/20">LIVE METRICS</span>
                   </div>
-                  
+
                   <div className="rounded-lg overflow-hidden border border-slate-800 bg-slate-950 p-2">
                     <img
                       src="/docs/doc-image-1.png"
@@ -526,7 +523,7 @@ export default function SnapStyleDocsPortalPage() {
                 {/* 3. Source Attribution & 72-Hour Forecast */}
                 <div id="user-profiles" className="space-y-4">
                   <h2 className="text-lg font-semibold text-white">Source Attribution & Diagnostic Matrix</h2>
-                  
+
                   <div className="rounded-lg overflow-hidden border border-slate-800 bg-slate-950 p-3">
                     <img
                       src="/docs/doc-image-3.png"
@@ -569,7 +566,7 @@ export default function SnapStyleDocsPortalPage() {
                 {/* 4. Multi-Agent Reasoning Feed & Map Controls */}
                 <div id="regulatory-metrics" className="space-y-4">
                   <h2 className="text-lg font-semibold text-white">Map Layer Legend & Statutory Controls</h2>
-                  
+
                   {/* Emission Factor Legend Image */}
                   <div className="rounded-lg overflow-hidden border border-slate-800 bg-slate-950 p-3">
                     <img
@@ -718,9 +715,9 @@ export default function SnapStyleDocsPortalPage() {
                 {/* Tech Stack Breakdown Cards */}
                 <div id="tech-stack-breakdown" className="space-y-4">
                   <h2 className="text-lg font-semibold text-white">2. Layer-by-Layer Comprehensive Tech Stack Breakdown</h2>
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs">
-                    
+
                     {/* Layer A: Frontend */}
                     <div className="bg-slate-900/90 border border-blue-500/30 p-4 rounded-xl space-y-2">
                       <span className="text-blue-400 font-bold block border-b border-slate-800 pb-1">
@@ -919,7 +916,7 @@ print(response.json())`}
                     <span className="material-symbols-outlined text-indigo-400 text-base font-sans">map</span>
                     🎛️ 2. Core Geospatial Command Rooms
                   </h3>
-                  
+
                   <div className="space-y-4 text-xs font-sans text-slate-300">
                     <div className="p-4 bg-slate-950 border border-slate-800 rounded-lg space-y-2">
                       <span className="text-white font-mono font-bold text-sm block">
@@ -1154,7 +1151,7 @@ print(response.json())`}
                     <span className="material-symbols-outlined text-indigo-400 text-base font-sans">widgets</span>
                     🎛️ 2. Core Control Panel & Sidebar Widgets
                   </h3>
-                  
+
                   <div className="space-y-4 text-xs font-sans text-slate-300">
                     <div className="space-y-1">
                       <strong className="text-white block font-mono">1. Spatial Intelligence Metadata (`spatialIntelligenceMetadata`)</strong>
@@ -1278,7 +1275,7 @@ print(response.json())`}
                     <span className="material-symbols-outlined text-indigo-400 text-base font-sans">hub</span>
                     🤖 1. Autonomous Agent Nodes & Specifications
                   </h3>
-                  
+
                   <div className="space-y-4 text-xs font-sans text-slate-300 font-sans">
                     <div id="agent-specs" className="space-y-1 font-sans">
                       <strong className="text-white block font-mono">1. Sensor Monitoring Agent (ID: AG-SENSOR-01)</strong>
@@ -1414,7 +1411,7 @@ print(response.json())`}
                     <span className="material-symbols-outlined text-indigo-400 text-base font-sans">settings_input_component</span>
                     🤖 1. Core MLOps Control Engine
                   </h3>
-                  
+
                   <div className="space-y-4 text-xs font-sans text-slate-300 font-sans">
                     <div className="space-y-1">
                       <strong className="text-white block font-mono">1. Model Architecture</strong>
@@ -1540,7 +1537,7 @@ print(response.json())`}
                     <span className="material-symbols-outlined text-indigo-400 text-base font-sans">settings_input_component</span>
                     🤖 1. Core MLOps Control Engine
                   </h3>
-                  
+
                   <div className="space-y-6 text-xs font-sans text-slate-300">
                     {/* Model Architecture */}
                     <div className="space-y-2">
@@ -1717,7 +1714,7 @@ print(response.json())`}
                     <span className="material-symbols-outlined text-indigo-400 text-base font-sans">translate</span>
                     🎛️ 1. Regional Translation Console
                   </h3>
-                  
+
                   <div className="space-y-4 text-xs font-sans text-slate-300">
                     <div className="space-y-1">
                       <strong className="text-white block font-mono">1. Regional Language Translation Hub</strong>
@@ -1865,7 +1862,7 @@ print(response.json())`}
                     <span className="material-symbols-outlined text-indigo-400 text-base font-sans">archive</span>
                     🎛️ 1. Exporter Dashboard Console
                   </h3>
-                  
+
                   <div className="space-y-6 text-xs font-sans text-slate-300 font-sans">
                     {/* Log Exporter */}
                     <div className="space-y-2 font-sans">
@@ -1971,7 +1968,7 @@ print(response.json())`}
                     <span className="material-symbols-outlined text-indigo-400 text-base font-sans">settings_suggest</span>
                     🎛️ 1. Administrative Profiles & Thresholds
                   </h3>
-                  
+
                   <div className="space-y-6 text-xs font-sans text-slate-300">
                     {/* Active Profile */}
                     <div id="officer-profile" className="space-y-2">
@@ -2110,7 +2107,7 @@ print(response.json())`}
                     <span className="material-symbols-outlined text-indigo-400 text-base font-sans">badge</span>
                     🎛️ 1. Officer ID Card & Display Settings
                   </h3>
-                  
+
                   <div className="space-y-6 text-xs font-sans text-slate-300">
                     {/* ID Card */}
                     <div id="officer-id-card" className="space-y-2">
