@@ -38,7 +38,7 @@ const MOCK_LOGS: Record<string, MockLog[]> = {
 export default function LogExporter() {
   // Exporter Filter Configs
   const [selectedSource, setSelectedSource] = useState<string>("telemetry");
-  const [exportFormat, setExportFormat] = useState<string>("json");
+  const [exportFormat, setExportFormat] = useState<string>("pdf");
   const [includeHashes, setIncludeHashes] = useState<boolean>(true);
   const [encryptPayloads, setEncryptPayloads] = useState<boolean>(false);
 

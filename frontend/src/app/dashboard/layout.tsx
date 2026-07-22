@@ -321,7 +321,78 @@ function SystemSearchBar() {
   );
 }
 
+interface NotificationItem {
+  id: string;
+  type: "error" | "info" | "success" | "warning";
+  title: string;
+  desc: string;
+  time: string;
+}
+
 function HeaderRightSection() {
+  const router = useRouter();
+  
+  // Notification states
+  const [notifications, setNotifications] = useState<NotificationItem[]>([
+    {
+      id: "ntf-1",
+      type: "error",
+      title: "CRITICAL BREACH: SECTOR MUM_042",
+      desc: "NO2 concentration exceeded 184 ug/m3 hazard threshold at Eastern Freeway.",
+      time: "2 mins ago"
+    },
+    {
+      id: "ntf-2",
+      type: "info",
+      title: "AGENT ACTIVITY DEPLOYED",
+      desc: "SourceAttributionAgent initiated hyperlocal spatial perimeter audit.",
+      time: "15 mins ago"
+    },
+    {
+      id: "ntf-3",
+      type: "success",
+      title: "BLOCKCHAIN SYNC COMPLETED",
+      desc: "Compliance statutory consensus block registered successfully on GovChain.",
+      time: "1 hr ago"
+    },
+    {
+      id: "ntf-4",
+      type: "warning",
+      title: "METRIC THRESHOLD ELEVATED",
+      desc: "PM2.5 levels climbing above nominal limits in Chembur microgrid.",
+      time: "2 hrs ago"
+    }
+  ]);
+  const [hasUnread, setHasUnread] = useState(true);
+  const [isNtfOpen, setIsNtfOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  
+  const ntfRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdowns on click outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (ntfRef.current && !ntfRef.current.contains(event.target as Node)) {
+        setIsNtfOpen(false);
+      }
+      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+        setIsProfileOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleMarkAllRead = () => {
+    setHasUnread(false);
+  };
+
+  const handleRemoveNotification = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setNotifications((prev) => prev.filter(n => n.id !== id));
+  };
+
   return (
     <div className="flex items-center gap-md">
       {/* Functional Interactive System Search Bar */}
@@ -335,12 +406,161 @@ function HeaderRightSection() {
       {/* Header Controls Right: 29 Corp Registry PDF Button */}
       <MunicipalRegistryPdfButton />
 
-      <button className="text-on-surface-variant hover:text-primary transition-colors p-1 flex items-center justify-center">
-        <span className="material-symbols-outlined text-[20px]">notifications</span>
-      </button>
-      <button className="text-on-surface-variant hover:text-primary transition-colors p-1 flex items-center justify-center">
-        <span className="material-symbols-outlined text-[20px]">account_circle</span>
-      </button>
+      {/* Notification Bell with Badge & Popover */}
+      <div className="relative" ref={ntfRef}>
+        <button 
+          onClick={() => {
+            setIsNtfOpen(!isNtfOpen);
+            setIsProfileOpen(false);
+            if (hasUnread) setHasUnread(false); // Read on open
+          }}
+          className={`text-on-surface-variant hover:text-primary transition-colors p-1.5 flex items-center justify-center rounded-full hover:bg-slate-900 ${isNtfOpen ? 'text-primary bg-slate-900' : ''}`}
+        >
+          <span className="material-symbols-outlined text-[20px] relative">
+            notifications
+            {hasUnread && notifications.length > 0 && (
+              <span className="absolute top-0.5 right-0.5 w-2 h-2 bg-red-500 rounded-full border border-slate-950 shadow-[0_0_8px_rgba(239,68,68,0.7)] animate-ping" />
+            )}
+            {hasUnread && notifications.length > 0 && (
+              <span className="absolute top-0.5 right-0.5 w-2 h-2 bg-red-500 rounded-full border border-slate-950 shadow-[0_0_8px_rgba(239,68,68,0.7)]" />
+            )}
+          </span>
+        </button>
+
+        {isNtfOpen && (
+          <div className="absolute right-0 mt-3 w-80 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl z-50 p-4 flex flex-col gap-3 font-sans">
+            <div className="flex justify-between items-center border-b border-slate-800 pb-2">
+              <span className="text-[10px] font-mono font-bold text-primary uppercase tracking-widest">
+                SYSTEM NOTIFICATIONS
+              </span>
+              {notifications.length > 0 && (
+                <button 
+                  onClick={handleMarkAllRead} 
+                  className="text-[9px] font-bold text-slate-500 hover:text-white uppercase tracking-wider transition-colors"
+                >
+                  Clear All
+                </button>
+              )}
+            </div>
+
+            <div className="max-h-64 overflow-y-auto custom-scrollbar flex flex-col gap-2">
+              {notifications.length > 0 ? (
+                notifications.map((ntf) => (
+                  <div 
+                    key={ntf.id} 
+                    className="p-2.5 rounded bg-slate-950/60 border border-slate-850 flex items-start justify-between gap-2 hover:border-slate-800 transition-colors group relative"
+                  >
+                    <div className="flex items-start gap-2">
+                      <span className={`material-symbols-outlined text-sm mt-0.5 ${
+                        ntf.type === 'error' ? 'text-red-400' :
+                        ntf.type === 'warning' ? 'text-amber-400' :
+                        ntf.type === 'success' ? 'text-emerald-400' : 'text-cyan-400'
+                      }`}>
+                        {ntf.type === 'error' ? 'error' :
+                         ntf.type === 'warning' ? 'warning' :
+                         ntf.type === 'success' ? 'check_circle' : 'info'}
+                      </span>
+                      <div className="flex flex-col gap-0.5">
+                        <span className="text-[10px] font-bold text-slate-200 uppercase tracking-wide leading-tight">{ntf.title}</span>
+                        <p className="text-[10px] text-slate-400 leading-normal">{ntf.desc}</p>
+                        <span className="text-[8px] text-slate-500 font-mono mt-1">{ntf.time}</span>
+                      </div>
+                    </div>
+                    <button 
+                      onClick={(e) => handleRemoveNotification(ntf.id, e)}
+                      className="text-slate-600 hover:text-slate-300 transition-colors opacity-0 group-hover:opacity-100 p-0.5 flex items-center justify-center rounded"
+                    >
+                      <span className="material-symbols-outlined text-xs">close</span>
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <div className="text-center py-6 flex flex-col gap-1 items-center justify-center">
+                  <span className="material-symbols-outlined text-slate-600 text-lg">notifications_off</span>
+                  <span className="text-slate-500 text-[10px] uppercase font-mono">No active notifications</span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Profile Avatar with Clearance popover & setting route links */}
+      <div className="relative" ref={profileRef}>
+        <button 
+          onClick={() => {
+            setIsProfileOpen(!isProfileOpen);
+            setIsNtfOpen(false);
+          }}
+          className={`text-on-surface-variant hover:text-primary transition-colors p-1.5 flex items-center justify-center rounded-full hover:bg-slate-900 ${isProfileOpen ? 'text-primary bg-slate-900' : ''}`}
+        >
+          <span className="material-symbols-outlined text-[22px]">account_circle</span>
+        </button>
+
+        {isProfileOpen && (
+          <div className="absolute right-0 mt-3 w-72 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl z-50 p-4 flex flex-col gap-3 font-sans">
+            <span className="text-[9px] font-mono font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-2">
+              OFFICER CLEARANCE CARD
+            </span>
+
+            {/* Officer Meta profile summary card */}
+            <div className="flex items-center gap-3 bg-slate-950 p-2.5 rounded border border-slate-850">
+              <div className="w-10 h-10 rounded-full border border-primary/40 overflow-hidden shrink-0">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img 
+                  alt="Biometric Avatar" 
+                  className="w-full h-full object-cover grayscale opacity-90"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoVaJBowY7LIraqEsrlsFAXPMKC_HGYEjpsC1MyV1DLvVJMSgRdeqkCpMqvMn-m2J50AcIcdmgikS4AfhNSs4j9wdfd7WhjDlvZ-QT7WfT6jyu3Rf0Q0MIMS7LOvXqpSVdb05SZ7iXWhVn2F_ILztRM8HrawKK3-tWkxrgApUHyTUiIDZBLcs1BTLvIFqFatfo42rlPysrIpXMs2-Hn39RBU6I3T2bflHlCa3r3tSAMy52TNJJJt32b2g8p_sWjQ6rLhhXKEScBT4"
+                />
+              </div>
+              <div className="flex flex-col gap-0.5 overflow-hidden">
+                <span className="text-[11px] font-bold text-white leading-tight truncate">Dr. A. K. Bhosale, IAS</span>
+                <span className="text-[8.5px] text-primary font-mono tracking-wide leading-none truncate">Director, EDM Cell</span>
+                <span className="text-[8px] bg-red-500/10 text-red-400 border border-red-500/20 px-1 py-0.5 rounded text-[7px] uppercase font-bold font-mono tracking-wider w-max mt-1">
+                  Clearance Level 4
+                </span>
+              </div>
+            </div>
+
+            {/* Navigation links inside popover */}
+            <div className="flex flex-col gap-1 border-t border-slate-800 pt-2 text-[10px]">
+              <Link 
+                href="/dashboard/settings/profile" 
+                onClick={() => setIsProfileOpen(false)}
+                className="flex items-center gap-2 p-1.5 rounded text-slate-300 hover:bg-slate-850 hover:text-white transition-colors"
+              >
+                <span className="material-symbols-outlined text-sm">person</span>
+                <span>View Administrative Profile</span>
+              </Link>
+              <Link 
+                href="/dashboard/settings" 
+                onClick={() => setIsProfileOpen(false)}
+                className="flex items-center gap-2 p-1.5 rounded text-slate-300 hover:bg-slate-850 hover:text-white transition-colors"
+              >
+                <span className="material-symbols-outlined text-sm">settings</span>
+                <span>Command Control Panel</span>
+              </Link>
+              <Link 
+                href="/dashboard/agent-logs/override" 
+                onClick={() => setIsProfileOpen(false)}
+                className="flex items-center gap-2 p-1.5 rounded text-slate-300 hover:bg-slate-850 hover:text-white transition-colors"
+              >
+                <span className="material-symbols-outlined text-sm">gavel</span>
+                <span>Guardrails Override Rules</span>
+              </Link>
+              <Link 
+                href="/dashboard/agent-logs/exporter" 
+                onClick={() => setIsProfileOpen(false)}
+                className="flex items-center gap-2 p-1.5 rounded text-slate-300 hover:bg-slate-850 hover:text-white transition-colors"
+              >
+                <span className="material-symbols-outlined text-sm">receipt_long</span>
+                <span>Statutory Audit Logs Exporter</span>
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
+
     </div>
   );
 }
