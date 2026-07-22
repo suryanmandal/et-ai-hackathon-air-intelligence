@@ -17,10 +17,16 @@
 *   **Header Bar:** Dark Slate-950 (`bg-slate-950/70`) with hover feedback, material symbols `menu` / `menu_open`, and accordion expansion arrows.
 *   **Boundary Outlines:** Dotted outer glow with dashed stroke matching AQI hazard status (Red `#ef4444`, Amber `#f59e0b`, Green `#10b981`).
 
-## 4. Typography & Fonts
+## 4. Topology Visual & Interactive Radar Animations
+*   **Breathing Node Indicators:** SVG circles showing agents are active (`animate-pulse shadow-glow`).
+*   **Radar Sweep Effects:** Rotating vector graphics centering on active agents, mimicking high-tech command sweeps.
+*   **Dotted Flow Connection Lines:** Animated SVG path flows connecting topology maps to demonstrate active token handoffs.
+
+## 5. Header Dropdown & Glassmorphic Popovers
+*   **Unread Notification Badging:** Pulsing red circle (`w-2 h-2 bg-red-500 rounded-full border border-slate-950 animate-pulse`).
+*   **Popover Menus:** Dark high-contrast panels with custom shadows (`shadow-2xl border-slate-850 rounded-xl bg-slate-900/95`).
+
+## 6. Typography & Fonts
 *   **Interface Header Elements:** Clean, highly readable sans-serif layout titles with tight tracking (`tracking-tight font-bold text-slate-100`).
 *   **Data Ledger Matrix Tables & Transaction Logs:** Strict monospace structural formatting (`font-mono text-xs tracking-wider`).
-
-## 5. Developer & API Hub Portal Layout (Documentation Theme)
-*   **Interactive Sandbox Layout:** Left-to-right split screen featuring a slider control panel on the left and an execution response inspector card on the right.
-*   **Code Block Design:** Strict console output dark-indigo theme (`bg-[#090d16] border-slate-800`) with high-visibility syntax colors (e.g. cyan-300, blue-600) and copy CTAs.
+*   **Developer Sandbox Layout:** Left-to-right split screen featuring a slider control panel on the left and an execution response inspector card on the right.

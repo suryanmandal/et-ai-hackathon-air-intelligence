@@ -9,7 +9,7 @@
     2. Transportation & Vehicular Exhaust (~30%): Cyan ● Circle Corridor ($\text{NO}_2$, Black Carbon)
     3. Construction & Dust (~20%): Purple ■ Square Grid ($\text{PM}_{10}$)
 *   **Pollutant Ingestion Feasibility Matrix:**
-    - PM2.5, PM10, SO2, NO2, O3, CO, NH3: Fully connected and ingesting live telemetry streams from Open-Meteo & OpenAQ APIs using API key `eebd96...`.
+    - PM2.5, PM10, SO2, NO2, O3, CO, NH3: Fully connected and ingesting live telemetry streams from Open-Meteo & OpenAQ APIs using API key.
     - Pb (Lead): Handled via 24-hr manual lab filter analysis (non-real-time).
 
 ## 2. Recent Architectural Achievements
@@ -17,7 +17,8 @@
 *   Synchronized `geospatial/satellite/page.tsx` with `useMunicipal()` for real-time organic city boundary glow outlines.
 *   Built dynamic statutory Municipal Corporation Registry PDF generator for all 28 states and Delhi UT.
 *   Built visual Municipal Environmental Dispatch Evidence PDF generator with chemical formula callouts and shape markers.
-*   Deployed Next.js frontend to **Vercel** (`https://vayusense-nu.vercel.app`) with environment variables configuration.
-*   Deployed FastAPI backend to **Render** (`https://vayusense-backend.onrender.com`) with unpinned requirements fix and dynamic `DATABASE_URL` routing.
-*   Integrated **Developer & API Hub Portal** (`/dashboard/docs`) into layout sidebar, system search engine, and dynamic Swagger references.
-*   Verified production build stability with `npm run build` passing 25 routes with **0 errors**.
+*   Implemented **PDF Default Target format** for all cryptographic log dispatches to download on progress completion.
+*   Overhauled the **Translation Console** with regional Indian dialects (Awadhi, Bhojpuri, Maithili, Odia, Rajasthani, Assamese, Manipuri) and state-focused default auto-selectors.
+*   Added interactive header control mechanisms, including a clickable VayuSense logo, active **Notification Bell Popover**, and **User Profile Badge**.
+*   Refactored agent topology pages to prevent overlaps and integrate spinning radar grids.
+*   Verified production build stability with `npm run build` passing 25 routes with **0 errors** and pushed directly to main branch.
