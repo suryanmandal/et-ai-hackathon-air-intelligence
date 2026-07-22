@@ -17,3 +17,4 @@ VayuSense is an enterprise-grade Municipal Environmental Monitoring & Automated 
 *   **Satellite Raster Integration:** Sentinel-5P satellite plume layer highlighted in Electric Indigo (`#6366f1`) with pulsing telemetry badges (`📡`).
 *   **Collapsible Big-Screen Map Viewport Controls:** Floating map control panel with interactive hamburger accordion toggle for big-screen GIS views.
 *   **Autonomous Multi-Agent Audit Operations:** Agentic workflow execution, SHA-256 cryptographically signed logs, multi-lingual translation engines, and downloadable official municipal evidence dispatch PDFs.
+*   **Developer & API Hub Portal:** Interactive documentation portal containing real-time code snippet sandboxes (cURL & Python), dynamic FastAPI Swagger integrations, and detailed technical walkthroughs.

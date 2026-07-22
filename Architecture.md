@@ -6,6 +6,10 @@
 *   **GIS Graphic Engines:** Mapbox GL JS for interactive map tile rendering, GeoJSON polygon overlays for emission factor source attribution, and dotted/dashed coastline boundary outlines.
 *   **AI Orchestration Framework:** Multi-agent autonomous workflow engine tracking sensor calibration, stack emission dispersion, and compliance dispatch triggers.
 *   **API & PDF Services:** Dynamic jsPDF engines producing official Municipal Corporation Registries and Visual Evidence Dispatch Reports.
+*   **Production Hosting Infrastructure:** 
+    - **Frontend:** Vercel serverless deployment (`https://vayusense-nu.vercel.app`)
+    - **Backend:** FastAPI + CrewAI hosted on Render (`https://vayusense-backend.onrender.com`)
+    - **Database:** PostgreSQL 15+ with PostGIS extension enabled (Render DB / Supabase)
 
 ## 2. App Flow Pipeline
 1. State/Corp Selection ➔ 2. `MunicipalContext` Provider Dispatch ➔ 3. Mapbox Viewport & Dotted Boundary Sync ➔ 4. Live SSE Telemetry Ingestion.
@@ -21,6 +25,7 @@
 │   │   │   │   └── audit/export/
 │   │   │   ├── dashboard/
 │   │   │   │   ├── home/           # Primary Command Overview & Collapsible Hamburger Map
+│   │   │   │   ├── docs/           # Developer & API Hub Portal [NEW]
 │   │   │   │   ├── geospatial/     # Satellite & Vector PostGIS Layers
 │   │   │   │   ├── ml-ops/         # ML Convergence & Sandbox
 │   │   │   │   ├── agent-logs/     # Multi-Agent Topology & Log Exporter

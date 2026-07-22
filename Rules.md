@@ -7,9 +7,10 @@
     - **Industrial & Power Generation (50%):** Vibrant Bright Yellow (`#eab308` / `bg-yellow-400`) ▲ Triangle Polygon.
     - **Transportation & Vehicular Exhaust (30%):** Cyan (`#06b6d4` / `bg-cyan-400`) ● Circle Line Corridor.
     - **Construction Dust (20%):** Purple (`#a855f7` / `bg-purple-400`) ■ Square Grid Polygon.
-    - **Sentinel-5P Satellite Plume:** Electric Indigo (`#6366f1` / `bg-indigo-500`) with pulsating `📡` badge.
+    - **Sentinel-5P Satellite Plume:** Electric Indigo (`#6366f1` / `bg-indigo-500`) with pulsing `📡` badge.
 *   **Security Protocol:** All administrative overrides, statutory compliance dispatches, and audit trail outputs must compute SHA-256 hashes prior to storage or export.
 
 ## 2. Developer & AI Coding Rules
 *   **Build Integrity:** Every modification must pass full `npm run build` static type-checking and route compilation with 0 errors.
 *   **Collapsible UI Rule:** Floating map control panels must remain collapsible via hamburger accordion toggles to ensure unhindered GIS viewing on large displays.
+*   **Environment Variable Protocol:** All private API keys and dynamic backend host URLs must be loaded through environment variables (`process.env.NEXT_PUBLIC_API_BASE_URL` on frontend, `DATABASE_URL` on backend). **Never hardcode raw secrets or local API URLs (e.g. localhost/127.0.0.1) in production source files.**

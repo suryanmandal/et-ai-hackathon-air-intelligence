@@ -20,3 +20,7 @@
 ## 4. Typography & Fonts
 *   **Interface Header Elements:** Clean, highly readable sans-serif layout titles with tight tracking (`tracking-tight font-bold text-slate-100`).
 *   **Data Ledger Matrix Tables & Transaction Logs:** Strict monospace structural formatting (`font-mono text-xs tracking-wider`).
+
+## 5. Developer & API Hub Portal Layout (Documentation Theme)
+*   **Interactive Sandbox Layout:** Left-to-right split screen featuring a slider control panel on the left and an execution response inspector card on the right.
+*   **Code Block Design:** Strict console output dark-indigo theme (`bg-[#090d16] border-slate-800`) with high-visibility syntax colors (e.g. cyan-300, blue-600) and copy CTAs.

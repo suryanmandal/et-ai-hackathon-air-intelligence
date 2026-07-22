@@ -9,8 +9,7 @@
     2. Transportation & Vehicular Exhaust (~30%): Cyan ● Circle Corridor ($\text{NO}_2$, Black Carbon)
     3. Construction & Dust (~20%): Purple ■ Square Grid ($\text{PM}_{10}$)
 *   **Pollutant Ingestion Feasibility Matrix:**
-    - PM2.5, PM10, SO2, NO2: Active real-time tracking streams.
-    - O3, CO, NH3: Ingestion service endpoints ready for external API keys payload.
+    - PM2.5, PM10, SO2, NO2, O3, CO, NH3: Fully connected and ingesting live telemetry streams from Open-Meteo & OpenAQ APIs using API key `eebd96...`.
     - Pb (Lead): Handled via 24-hr manual lab filter analysis (non-real-time).
 
 ## 2. Recent Architectural Achievements
@@ -18,4 +17,7 @@
 *   Synchronized `geospatial/satellite/page.tsx` with `useMunicipal()` for real-time organic city boundary glow outlines.
 *   Built dynamic statutory Municipal Corporation Registry PDF generator for all 28 states and Delhi UT.
 *   Built visual Municipal Environmental Dispatch Evidence PDF generator with chemical formula callouts and shape markers.
-*   Verified production build stability with `npm run build` passing 23 routes with **0 errors**.
+*   Deployed Next.js frontend to **Vercel** (`https://vayusense-nu.vercel.app`) with environment variables configuration.
+*   Deployed FastAPI backend to **Render** (`https://vayusense-backend.onrender.com`) with unpinned requirements fix and dynamic `DATABASE_URL` routing.
+*   Integrated **Developer & API Hub Portal** (`/dashboard/docs`) into layout sidebar, system search engine, and dynamic Swagger references.
+*   Verified production build stability with `npm run build` passing 25 routes with **0 errors**.
