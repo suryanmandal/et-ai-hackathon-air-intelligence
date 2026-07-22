@@ -59,7 +59,8 @@ export default function HyperlocalScenarioSandbox() {
       try {
         const trafficScalar = 1.0 + (trafficDensity / 100);
         const industrialScalar = 1.0 + (industrialOutput / 100);
-        const res = await fetch("http://127.0.0.1:8000/api/v1/predict/scenario", {
+        const backendUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "https://vayusense-backend.onrender.com";
+        const res = await fetch(`${backendUrl}/api/v1/predict/scenario`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
