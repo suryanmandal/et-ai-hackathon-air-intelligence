@@ -598,7 +598,9 @@ export default function DashboardLayout({
         {/* TopNavBar */}
         <header className="fixed top-0 w-full z-50 h-16 bg-slate-900 border-b border-[#3c4a42]/30 flex justify-between items-center px-md shrink-0">
           <div className="flex items-center gap-5">
-            <span className="font-display-lg text-lg font-bold text-primary tracking-tight">VayuSense</span>
+            <Link href="/dashboard/home" className="hover:opacity-85 transition-opacity cursor-pointer">
+              <span className="font-display-lg text-lg font-bold text-primary tracking-tight">VayuSense</span>
+            </Link>
             
             {/* Header Controls Left: State & Municipal Corp Dropdowns */}
             <HeaderControlsLeft />
