@@ -47,18 +47,70 @@ Under the hood, when air quality breaches the regulatory limit (AQI > 200), Vayu
 ## 🎛️ System Architecture Blueprint
 
 ```mermaid
-graph TD
-    UI["VayuSense Dashboard UI<br>(Next.js 14 on Vercel)"]
-    Mapbox["Mapbox GL JS<br>(GIS Maps)"]
-    FastAPI["FastAPI Backend<br>(Python on Render)"]
-    Postgres["PostgreSQL + PostGIS<br>(Database Tier)"]
-    CrewAI["CrewAI Multi-Agents<br>(Sensor, Attribution, Compliance)"]
+graph TB
+    %% Client Tier
+    subgraph Client_Tier ["1. CLIENT VIEWPORT & CORE CONTROLS (Vercel)"]
+        UI["VayuSense Web Dashboard<br>(Next.js 14 App Router)"]
+        Mapbox["Mapbox GL JS Engine<br>(GIS Plume & Boundaries)"]
+        jsPDF["jsPDF Engine<br>(Statutory Notice Generaton)"]
+        DocsPortal["Developer Docs Portal<br>(Interactive API Sandbox)"]
+    end
 
-    UI -->|Queries| FastAPI
-    UI -->|Renders| Mapbox
-    FastAPI -->|Queries Coordinates| Postgres
-    FastAPI -->|Invokes Loops| CrewAI
-    CrewAI -->|Resolves Owners| Postgres
+    %% External APIs
+    subgraph External_APIs ["2. INGESTION DATA SOURCE FEEDS"]
+        OpenAQ["OpenAQ Global API<br>(CAAQMS Ground Stations)"]
+        OpenMeteo["Open-Meteo Air Quality API<br>(Live Meteorological Metrics)"]
+        Sentinel["Copernicus Sentinel Hub<br>(S5P Gas Plume Overlays)"]
+    end
+
+    %% FastAPI Backend
+    subgraph Backend_Tier ["3. AI ORCHESTRATION & INFERENCE (Render)"]
+        FastAPI["FastAPI App Engine<br>(Python 3.11)"]
+        
+        subgraph ML_Models ["ML Forecasting Models"]
+            RF["Random Forest Regressor<br>(12h PM2.5 Trajectory)"]
+            XGB["XGBoost Regressor<br>(Weighted Ensemble Node)"]
+        end
+
+        subgraph CrewAI_Agents ["CrewAI Multi-Agent Pipeline"]
+            SensorAgent["🔬 SensorAgent<br>(Drift & Validation Calibration)"]
+            AttributionAgent["📡 SourceAttributionAgent<br>(PostGIS Vector Intersections)"]
+            ComplianceAgent["⚖️ ComplianceAgent<br>(Statutory SHA-256 Signatures)"]
+        end
+    end
+
+    %% Database Tier
+    subgraph Storage_Tier ["4. SPATIAL DATABASE LAYER (Supabase / Neon DB)"]
+        Postgres["PostgreSQL 15 Server"]
+        PostGIS["PostGIS Spatial Extension"]
+        Tables["Tables:<br>- Facilities (Geometry)<br>- TelemetryLog<br>- AuditLogs (SHA-256 Ledger)"]
+    end
+
+    %% Data Flow Routing
+    OpenAQ -->|CAAQMS Readings| UI
+    OpenMeteo -->|Live Gas Telemetry| UI
+    Sentinel -->|S5P Columns| UI
+    
+    UI -->|REST Scenario Payload| FastAPI
+    UI -->|Render Vector Polygons| Mapbox
+    
+    FastAPI -->|Invoke Agent Crews| CrewAI_Agents
+    FastAPI -->|Trigger Predictions| ML_Models
+    
+    CrewAI_Agents -->|Query H3 Indexes & Blame| Postgres
+    Postgres -->|Enable Geospatial Operators| PostGIS
+    Postgres -.->|Store Logs| Tables
+
+    %% Styling
+    classDef client fill:#0f172a,stroke:#3b82f6,stroke-width:2px,color:#fff;
+    classDef apis fill:#020617,stroke:#eab308,stroke-width:2px,color:#fff;
+    classDef backend fill:#0b1329,stroke:#6366f1,stroke-width:2px,color:#fff;
+    classDef db fill:#022c22,stroke:#10b981,stroke-width:2px,color:#fff;
+
+    class UI,Mapbox,jsPDF,DocsPortal client;
+    class OpenAQ,OpenMeteo,Sentinel apis;
+    class FastAPI,RF,XGB,SensorAgent,AttributionAgent,ComplianceAgent backend;
+    class Postgres,PostGIS,Tables db;
 ```
 
 ---
