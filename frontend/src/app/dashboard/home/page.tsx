@@ -550,186 +550,187 @@ export default function MainControlRoom() {
       format: "a4"
     });
 
-    const primaryTeal = "#0d9488"; // Official Teal
-    const cardBgColor = "#f1f5f9"; // Light Slate Card
-    const textDark = "#0f172a";    // Slate 950
-    const textMuted = "#475569";   // Slate 600
-    const borderSlate = "#cbd5e1"; // Slate 300
+    const primaryColor = "#10b981"; // Emerald Green
+    const cardBgColor = "#1e293b"; // Slate 800
+    const textLight = "#f8fafc";
+    const textMuted = "#94a3b8";
+    const accentColor = "#22d3ee"; // Cyan Accent
 
     // ==========================================
     // PAGE 1: STATUTORY DISPATCH ORDER
     // ==========================================
     
-    // Background Fill (Off-White)
-    doc.setFillColor("#fcfbf9"); 
+    // Theme background (Sleek Dark Mode A4 Template)
+    doc.setFillColor("#0f172a"); // Dark Slate 950
     doc.rect(0, 0, 210, 297, "F");
 
-    // Top Teal Indicator Strip
-    doc.setFillColor(primaryTeal);
+    // Top indicator strip
+    doc.setFillColor(primaryColor);
     doc.rect(0, 0, 210, 6, "F");
 
-    // Title & Logo
+    // Title & Header details
     doc.setFont("helvetica", "bold");
     doc.setFontSize(22);
-    doc.setTextColor(primaryTeal);
+    doc.setTextColor(primaryColor);
     doc.text("VAYUSENSE", 14, 18);
 
     doc.setFontSize(10);
-    doc.setTextColor(textDark);
-    doc.text("OFFICIAL LEVEL 4 DIRECTIVE: EXECUTIVE ENVIRONMENTAL DISPATCH ORDER", 14, 25);
+    doc.setTextColor(textLight);
+    doc.text("LEVEL 4 COMMAND DISPATCH & COMPLIANCE EVIDENCE BLOCK", 14, 25);
 
     doc.setFontSize(7.5);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(textMuted);
-    doc.text(`REGULATORY RUNTIME SECURE LEDGER | LOCALITY NODE: MUM_042 | VERIFICATION SYNC ACTIVE`, 14, 31);
+    doc.text(`REGULATORY RUNTIME SECURE LEDGER | TARGET NODE: MUM_042 | VERIFICATION SYNC ACTIVE`, 14, 31);
     doc.text(`ISSUED: ${new Date().toLocaleString()} | DISPATCH ID: VAYU-ORDER-L4-${Date.now().toString().slice(-6)}`, 14, 36);
 
-    // Divider Line
-    doc.setDrawColor(borderSlate);
+    // Metadata Divider line
+    doc.setDrawColor("#334155");
     doc.setLineWidth(0.4);
     doc.line(14, 40, 196, 40);
 
-    // Authority Verification Card
+    // 1. Level 4 Authority Verification Card
     doc.setFillColor(cardBgColor);
     doc.rect(14, 46, 182, 34, "F");
-    doc.setDrawColor(primaryTeal);
+    doc.setDrawColor(primaryColor);
     doc.setLineWidth(0.5);
     doc.rect(14, 46, 182, 34, "D");
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(8.5);
-    doc.setTextColor(primaryTeal);
-    doc.text("LEVEL 4 MUNICIPAL COMMAND DIRECTOR SECURITY CLEARANCE", 19, 53);
+    doc.setTextColor(primaryColor);
+    doc.text("SECURITY AUDIT PROTOCOL & LEVEL 4 STATUS VERIFIED", 19, 53);
     
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
-    doc.setTextColor(textDark);
+    doc.setTextColor(textLight);
     doc.text("Enforcement Cleared By:", 19, 61);
     doc.setFont("helvetica", "bold");
-    doc.setTextColor(primaryTeal);
+    doc.setTextColor(primaryColor);
     doc.text("DR. ABHIJIT K. BHOSALE, IAS (ENVIRONMENT COMMAND DIRECTOR)", 60, 61);
 
     doc.setFont("helvetica", "normal");
-    doc.setTextColor(textDark);
-    doc.text("GovChain Audit Status:", 19, 68);
+    doc.setTextColor(textLight);
+    doc.text("Blockchain Sync Node:", 19, 68);
     doc.setFont("courier", "bold");
     doc.setFontSize(8);
-    doc.setTextColor(textMuted);
-    doc.text("Consensus Node Active (BMC Signature Verified - Level 4 Clear)", 60, 68);
+    doc.setTextColor(accentColor);
+    doc.text("GovChain.bmc.mumbai.org/authority/lvl-4-seal-active", 60, 68);
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
-    doc.setTextColor(textDark);
-    doc.text("Dispatch Units Deployment:", 19, 75);
+    doc.setTextColor(textLight);
+    doc.text("Statutory Dispatch Order:", 19, 75);
     doc.setFont("helvetica", "bold");
-    doc.setTextColor("#b45309"); // Amber
+    doc.setTextColor("#ef4444"); // Red
     doc.text("VAYU-MOBILE-1 & VAYU-MOBILE-3 UNITS DEPLOYED (Active Field Closure)", 60, 75);
 
-    // Section 1: Emergency Grid Matrix
+    // 2. Incident Summary & Grid Data
     doc.setFont("helvetica", "bold");
     doc.setFontSize(10.5);
-    doc.setTextColor(primaryTeal);
+    doc.setTextColor(primaryColor);
     doc.text("1. EMERGENCY GRID STATISTICAL MATRIX", 14, 92);
 
-    doc.setFillColor("#ffffff");
+    // Detailed incident variables box
+    doc.setFillColor("#090d16");
     doc.rect(14, 96, 182, 36, "F");
-    doc.setDrawColor(borderSlate);
+    doc.setDrawColor("#334155");
+    doc.setLineWidth(0.4);
     doc.rect(14, 96, 182, 36, "D");
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(8.5);
-    doc.setTextColor(textMuted);
+    doc.setTextColor(textLight);
     doc.text("Target Sector Grid:", 18, 103);
     doc.text("Peak Air Quality (AQI):", 18, 110);
-    doc.text("Meteorological Metrics:", 18, 117);
+    doc.text("Active Meteorological Wind:", 18, 117);
     doc.text("Isolated Main Pollutant:", 18, 124);
 
     doc.setFont("helvetica", "bold");
-    doc.setTextColor(textDark);
-    doc.text("BMC_MUM_042 (Worli Naka Industrial Corridor)", 58, 103);
-    doc.setTextColor("#b91c1c"); // Red
-    doc.text("412 AQI -- CRITICAL HEALTH HAZARD (LEVEL 4 DIRECTIVE ENFORCED)", 58, 110);
-    doc.setTextColor(textDark);
-    doc.text("3.5 m/s Wind Speed (NW Vector) | Humidity 78%", 58, 117);
-    doc.setTextColor("#0369a1"); // Cyan-dark
-    doc.text("Nitrogen Dioxide (NO2) gas (184 ug/m3 ceiling limit exceeded)", 58, 124);
+    doc.text("BMC_MUM_042 (Worli Naka Industrial Corridor)", 60, 103);
+    doc.setTextColor("#ef4444");
+    doc.text("412 AQI -- SEVERE HAZARD EXCEEDED LIMITS", 60, 110);
+    doc.setTextColor(textLight);
+    doc.text("3.5 m/s Wind Vector (Direction NW) -- Humidity 78%", 60, 117);
+    doc.setTextColor(accentColor);
+    doc.text("Nitrogen Dioxide (NO2) gas (184 ug/m3 ceiling crossed)", 60, 124);
 
-    // Section 2: Source Risk Spectrum
+    // 3. Attributed Emission Sources Visual Breakdown
     doc.setFont("helvetica", "bold");
     doc.setFontSize(10.5);
-    doc.setTextColor(primaryTeal);
+    doc.setTextColor(primaryColor);
     doc.text("2. SOURCE ATTRIBUTION RISK SPECTRUM", 14, 144);
 
-    // Industrial
-    doc.setFillColor(180, 83, 9); // Amber-dark
+    // Yellow Industrial Factor (50%)
+    doc.setFillColor(234, 179, 8);
     doc.triangle(16, 152, 19, 148, 22, 152, "F");
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(8);
-    doc.setTextColor(180, 83, 9);
+    doc.setFontSize(8.5);
+    doc.setTextColor(234, 179, 8);
     doc.text("Industrial & Power Generation (~50%) -- [SO2, NOx, PM2.5, Pb]", 25, 152);
     doc.text("50%", 183, 152);
-    doc.setFillColor("#e2e8f0");
+    doc.setFillColor("#1e293b");
     doc.rect(14, 155, 182, 3, "F");
-    doc.setFillColor(180, 83, 9);
+    doc.setFillColor(234, 179, 8);
     doc.rect(14, 155, 182 * 0.5, 3, "F");
 
-    // Vehicular
-    doc.setFillColor(3, 105, 161); // Cyan-dark
+    // Cyan Vehicular Factor (30%)
+    doc.setFillColor(6, 182, 212);
     doc.circle(19, 166, 1.8, "F");
-    doc.setTextColor(3, 105, 161);
+    doc.setTextColor(6, 182, 212);
     doc.text("Transportation & Vehicular Exhaust (~30%) -- [NO2, Black Carbon]", 25, 167);
     doc.text("30%", 183, 167);
-    doc.setFillColor("#e2e8f0");
+    doc.setFillColor("#1e293b");
     doc.rect(14, 170, 182, 3, "F");
-    doc.setFillColor(3, 105, 161);
+    doc.setFillColor(6, 182, 212);
     doc.rect(14, 170, 182 * 0.3, 3, "F");
 
-    // Construction
-    doc.setFillColor(126, 34, 206); // Purple-dark
+    // Purple Construction Factor (20%)
+    doc.setFillColor(168, 85, 247);
     doc.rect(17, 179, 3.5, 3.5, "F");
-    doc.setTextColor(126, 34, 206);
+    doc.setTextColor(168, 85, 247);
     doc.text("Construction, Demolition & Dust (~20%) -- [PM10 Fugitive Silt]", 25, 182);
     doc.text("20%", 183, 182);
-    doc.setFillColor("#e2e8f0");
+    doc.setFillColor("#1e293b");
     doc.rect(14, 185, 182, 3, "F");
-    doc.setFillColor(126, 34, 206);
+    doc.setFillColor(168, 85, 247);
     doc.rect(14, 185, 182 * 0.2, 3, "F");
 
-    // Section 3: Automated Dispatch Workflow
+    // 4. Automated Dispatch Workflow
     doc.setFont("helvetica", "bold");
     doc.setFontSize(10.5);
-    doc.setTextColor(primaryTeal);
+    doc.setTextColor(primaryColor);
     doc.text("3. AUTOMATED DISPATCH WORKFLOW SCHEMATIC", 14, 201);
 
     doc.setFillColor(cardBgColor);
     doc.rect(14, 205, 182, 36, "F");
-    doc.setDrawColor(borderSlate);
+    doc.setDrawColor("#334155");
     doc.rect(14, 205, 182, 36, "D");
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(8);
-    doc.setTextColor(textDark);
+    doc.setTextColor(primaryColor);
     doc.text("STEP 1. AI Detection:", 18, 211);
     doc.text("STEP 2. Level 3 Review:", 18, 218);
     doc.text("STEP 3. Level 1 Action:", 18, 225);
     doc.text("STEP 4. Level 4 Audit:", 18, 232);
 
     doc.setFont("helvetica", "normal");
-    doc.setTextColor(textMuted);
+    doc.setTextColor(textLight);
     doc.text("CrewAI Multi-Agents automatically attribute pollution source on H3 Hexagonal Grid.", 55, 211);
     doc.text("Zonal Operations Controller verifies agent reasoning flow and dispatches orders.", 55, 218);
     doc.text("Field Inspector receives optimized mobile route to execute penalties and closure.", 55, 225);
     doc.text("Municipal Command Director reviews resolved ticket details in SHA-256 Audit Ledger.", 55, 232);
 
-    // Section 4: Multi-Agent Reasonings
+    // 5. Multi-Agent Reasoning Feed
     doc.setFont("helvetica", "bold");
     doc.setFontSize(10.5);
-    doc.setTextColor(primaryTeal);
+    doc.setTextColor(primaryColor);
     doc.text("4. FIELD COMPLIANCE LOG TRIAL (AUDIT TRACE)", 14, 252);
 
-    doc.setFillColor("#ffffff");
+    doc.setFillColor("#090d16");
     doc.rect(14, 256, 182, 28, "F");
-    doc.setDrawColor(borderSlate);
+    doc.setDrawColor("#334155");
     doc.rect(14, 256, 182, 28, "D");
 
     let logY = 261;
@@ -740,14 +741,14 @@ export default function MainControlRoom() {
       doc.text(`[${log.time}]`, 18, logY);
 
       doc.setFont("courier", "bold");
-      if (log.sender === "SensorAgent") doc.setTextColor(180, 83, 9);
-      else if (log.sender === "SourceAttributionAgent") doc.setTextColor(3, 105, 161);
-      else if (log.sender === "ComplianceAgent") doc.setTextColor(126, 34, 206);
-      else doc.setTextColor(185, 28, 28);
+      if (log.sender === "SensorAgent") doc.setTextColor(245, 158, 11);
+      else if (log.sender === "SourceAttributionAgent") doc.setTextColor(34, 211, 238);
+      else if (log.sender === "ComplianceAgent") doc.setTextColor(168, 85, 247);
+      else doc.setTextColor(239, 68, 68);
       doc.text(`${log.sender}:`, 36, logY);
 
       doc.setFont("courier", "normal");
-      doc.setTextColor(textDark);
+      doc.setTextColor(textLight);
       const splitText = doc.splitTextToSize(log.content, 120);
       doc.text(splitText[0], 76, logY);
       logY += 6.5;
@@ -758,6 +759,7 @@ export default function MainControlRoom() {
     doc.setFontSize(8);
     doc.setTextColor(textMuted);
     doc.text("Page 1 of 2", 185, 291);
+    doc.setDrawColor("#334155");
     doc.line(14, 287, 196, 287);
 
     // ==========================================
@@ -765,31 +767,31 @@ export default function MainControlRoom() {
     // ==========================================
     doc.addPage();
 
-    // Background Fill
-    doc.setFillColor("#fcfbf9"); 
+    // Theme background
+    doc.setFillColor("#0f172a"); // Dark Slate 950
     doc.rect(0, 0, 210, 297, "F");
 
-    // Top Teal Indicator Strip
-    doc.setFillColor(primaryTeal);
+    // Top indicator strip
+    doc.setFillColor(primaryColor);
     doc.rect(0, 0, 210, 6, "F");
 
     // Page Title
     doc.setFont("helvetica", "bold");
     doc.setFontSize(16);
-    doc.setTextColor(primaryTeal);
+    doc.setTextColor(primaryColor);
     doc.text("VAYUSENSE ROLE-BASED ACCESS CONTROL (RBAC)", 14, 18);
     doc.setFontSize(9);
-    doc.setTextColor(textDark);
+    doc.setTextColor(textLight);
     doc.text("MUNICIPAL AUTHORITY MANAGEMENT & ADMINISTRATIVE COMMAND SHEETS", 14, 24);
 
     // Divider Line
-    doc.setDrawColor(borderSlate);
+    doc.setDrawColor("#334155");
     doc.setLineWidth(0.4);
     doc.line(14, 28, 196, 28);
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
-    doc.setTextColor(primaryTeal);
+    doc.setTextColor(primaryColor);
     doc.text("SYSTEM ADMINISTRATIVE LEVELS SUMMARY", 14, 36);
 
     // --- LEVEL 4 CARD ---
@@ -804,7 +806,7 @@ export default function MainControlRoom() {
     doc.text("LEVEL 4: Municipal Command Director (IAS Officers, Commissioners)", 18, 48);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(8.5);
-    doc.setTextColor(textDark);
+    doc.setTextColor(textLight);
     doc.text("Strategic operations command. Provides multi-city compliance visibility, and policy tool sets.", 18, 54);
     doc.setFont("helvetica", "bold");
     doc.text("Primary Access:", 18, 62);
@@ -825,7 +827,7 @@ export default function MainControlRoom() {
     doc.text("LEVEL 3: Zonal Operations Controller (City Environment Officers)", 18, 92);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(8.5);
-    doc.setTextColor(textDark);
+    doc.setTextColor(textLight);
     doc.text("Day-to-day operations management, AI anomaly attribution verification, and dispatch logs execution.", 18, 98);
     doc.setFont("helvetica", "bold");
     doc.text("Primary Access:", 18, 106);
@@ -846,7 +848,7 @@ export default function MainControlRoom() {
     doc.text("LEVEL 2: Sector Analyst (Monitoring Staff & Data Engineers)", 18, 136);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(8.5);
-    doc.setTextColor(textDark);
+    doc.setTextColor(textLight);
     doc.text("Technical analytics focusing on localized telemetry ingestion calibration, and model validations.", 18, 142);
     doc.setFont("helvetica", "bold");
     doc.text("Primary Access:", 18, 150);
@@ -867,7 +869,7 @@ export default function MainControlRoom() {
     doc.text("LEVEL 1: Field Enforcement Inspector (Ground Patrols, Rapid Action Teams)", 18, 180);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(8.5);
-    doc.setTextColor(textDark);
+    doc.setTextColor(textLight);
     doc.text("Boots on the ground. Receive optimized mobile routes and issue statutory field penalty dispatches.", 18, 186);
     doc.setFont("helvetica", "bold");
     doc.text("Primary Access:", 18, 194);
@@ -880,12 +882,12 @@ export default function MainControlRoom() {
     // Cryptographic signatures section on Page 2
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
-    doc.setTextColor(primaryTeal);
+    doc.setTextColor(primaryColor);
     doc.text("DECENTRALIZED WORKFLOW COMPLIANCE LOG VERIFICATION", 14, 226);
 
-    doc.setFillColor("#ffffff");
+    doc.setFillColor("#090d16");
     doc.rect(14, 230, 182, 32, "F");
-    doc.setDrawColor(borderSlate);
+    doc.setDrawColor("#334155");
     doc.rect(14, 230, 182, 32, "D");
 
     doc.setFont("courier", "normal");
