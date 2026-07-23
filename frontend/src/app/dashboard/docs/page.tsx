@@ -1235,6 +1235,207 @@ print(response.json())`}
               </section>
             )}
 
+            {/* H3 MAPPING SECTION */}
+            {activeSection === "h3-mapping" && (
+              <section className="space-y-6">
+                <div>
+                  <div className="flex items-center gap-2 text-xs font-mono text-blue-400 mb-1">
+                    <span>SECTION 2</span> • <span>SPATIAL & TELEMETRY ENGINE</span>
+                  </div>
+                  <h1 className="text-3xl font-bold text-white tracking-tight font-display mb-2">
+                    Uber H3 Res-8 Hexagonal Grid Mapping
+                  </h1>
+                  <p className="text-sm text-slate-300 leading-relaxed font-sans">
+                    VayuSense partitions municipal administrative limits across all 277 corporations into uniform discrete hexagonal cells using Uber H3 index Resolution 8 to eliminate directional bias.
+                  </p>
+                </div>
+
+                <div className="bg-slate-900/80 border border-slate-800 p-5 rounded-xl space-y-4">
+                  <h3 className="text-sm font-bold text-white flex items-center gap-2 font-mono">
+                    <span className="material-symbols-outlined text-indigo-400 text-base">grid_view</span>
+                    🔷 Hexagonal Spatial Indexing Architecture
+                  </h3>
+                  <div className="text-xs text-slate-300 space-y-2 font-sans">
+                    <p>
+                      Unlike square bounding boxes, hexagonal grids maintain constant distances between neighboring cell centroids, eliminating directional orientation bias during Gaussian plume dispersion modeling.
+                    </p>
+                    <ul className="list-disc pl-4 space-y-1 text-slate-400">
+                      <li><strong>H3 Resolution Level:</strong> Resolution 8</li>
+                      <li><strong>Average Cell Area:</strong> 0.7373 km² (~73.7 hectares)</li>
+                      <li><strong>Average Edge Length:</strong> 0.4613 km (461.35 meters)</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="bg-[#090d16] border border-slate-800 p-5 rounded-xl space-y-4">
+                  <h3 className="text-sm font-bold text-white flex items-center gap-2 font-mono" id="vector-factors">
+                    <span className="material-symbols-outlined text-cyan-400 text-base">analytics</span>
+                    📐 Geometric Emission Vector Factors
+                  </h3>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-xs text-left border-collapse">
+                      <thead>
+                        <tr className="border-b border-slate-800 text-slate-400">
+                          <th className="py-2">Source Category</th>
+                          <th className="py-2">Impact</th>
+                          <th className="py-2">Marker / Color</th>
+                          <th className="py-2">Chemical Markers</th>
+                          <th className="py-2">Geometry Type</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-800 text-slate-300">
+                        <tr>
+                          <td className="py-2.5 font-bold">Industrial / Stack</td>
+                          <td className="py-2.5">50%</td>
+                          <td className="py-2.5 text-yellow-500">▲ Triangle (#eab308)</td>
+                          <td className="py-2.5">SO₂, NOx, PM2.5, Lead</td>
+                          <td className="py-2.5">Points & Polygons</td>
+                        </tr>
+                        <tr>
+                          <td className="py-2.5 font-bold">Vehicular / Highway</td>
+                          <td className="py-2.5">30%</td>
+                          <td className="py-2.5 text-cyan-400">● Circle (#06b6d4)</td>
+                          <td className="py-2.5">NO₂, Black Carbon, VOCs</td>
+                          <td className="py-2.5">Lines (Logistics Roads)</td>
+                        </tr>
+                        <tr>
+                          <td className="py-2.5 font-bold">Construction / Dust</td>
+                          <td className="py-2.5">20%</td>
+                          <td className="py-2.5 text-purple-400">■ Square (#a855f7)</td>
+                          <td className="py-2.5">PM10, Coarse Silica</td>
+                          <td className="py-2.5">Site Polygon Enclosures</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div className="bg-slate-900/80 border border-slate-800 p-5 rounded-xl space-y-3 font-sans" id="h3-code-lookup">
+                  <h3 className="text-sm font-bold text-white flex items-center gap-2 font-mono">
+                    <span className="material-symbols-outlined text-emerald-400 text-base">code</span>
+                    💻 H3 Index Lookup Code (Python)
+                  </h3>
+                  <pre className="p-4 bg-[#090d16] border border-slate-800 rounded-lg text-xs font-mono text-cyan-300 overflow-x-auto">
+                    <code>{`import h3
+
+def get_vayu_h3_cell(lat: float, lng: float, resolution: int = 8) -> str:
+    """
+    Converts latitude/longitude coordinates to an Uber H3 Resolution-8 Index.
+    """
+    h3_index = h3.geo_to_h3(lat, lng, resolution)
+    return h3_index
+
+# Example: Nariman Point, Mumbai
+cell_id = get_vayu_h3_cell(18.9256, 72.8242)
+print(f"H3 Res-8 Hex Cell ID: {cell_id}")
+# Output: H3 Res-8 Hex Cell ID: 8860b52461fffff`}</code>
+                  </pre>
+                </div>
+              </section>
+            )}
+
+            {/* SENSOR DRIFT CALIBRATION SECTION */}
+            {activeSection === "sensor-drift" && (
+              <section className="space-y-6">
+                <div>
+                  <div className="flex items-center gap-2 text-xs font-mono text-blue-400 mb-1">
+                    <span>SECTION 2</span> • <span>SPATIAL & TELEMETRY ENGINE</span>
+                  </div>
+                  <h1 className="text-3xl font-bold text-white tracking-tight font-display mb-2">
+                    Sensor Drift Calibration Tolerances
+                  </h1>
+                  <p className="text-sm text-slate-300 leading-relaxed font-sans">
+                    Monitors ambient drift tolerances, temperature calibration coefficients, and zero-point calibration schedules across pan-India monitoring networks.
+                  </p>
+                </div>
+
+                <div className="bg-slate-900/80 border border-slate-800 p-5 rounded-xl space-y-4">
+                  <h3 className="text-sm font-bold text-white flex items-center gap-2 font-mono" id="cross-station">
+                    <span className="material-symbols-outlined text-indigo-400 text-base">swap_horiz</span>
+                    ⚖️ Cross-Station Sensor Calibration Framework
+                  </h3>
+                  <p className="text-xs text-slate-300 leading-relaxed font-sans">
+                    Due to environmental exposure, high humidity, ambient dust accumulation, and aging optical components, raw sensor streams undergo automated cross-station calibration to maintain regulatory accuracy.
+                  </p>
+                </div>
+
+                <div className="bg-[#090d16] border border-slate-800 p-5 rounded-xl space-y-4" id="kohler-formula">
+                  <h3 className="text-sm font-bold text-white flex items-center gap-2 font-mono">
+                    <span className="material-symbols-outlined text-cyan-400 text-base">functions</span>
+                    🧮 Mathematical Calibration & Relative Humidity Correction
+                  </h3>
+                  <div className="text-xs text-slate-300 space-y-3 font-sans">
+                    <p>
+                      Low-cost optical particle counters (PM2.5/PM10) overestimate mass concentration under high relative humidity (RH &gt; 70%) due to hygroscopic growth of aerosol particles. VayuSense applies the empirical Kohler correction factor:
+                    </p>
+                    <div className="p-3 bg-slate-950 border border-slate-800 rounded-lg text-center font-mono text-cyan-300 text-sm my-2">
+                      PM_calibrated = PM_raw / [1 + a * (RH / (100 - RH))^b]
+                    </div>
+                    <p className="text-slate-400 text-[11px]">
+                      Where a = 0.25 and b = 1.05 represent empirical parameters optimized for Indic environments (coastal and inland urban microclimates).
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-slate-900/80 border border-slate-800 p-5 rounded-xl space-y-4" id="drift-matrix">
+                  <h3 className="text-sm font-bold text-white flex items-center gap-2 font-mono">
+                    <span className="material-symbols-outlined text-emerald-400 text-base">grid_on</span>
+                    📊 Zero-Point & Span Drift Tolerance Matrix
+                  </h3>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-xs text-left border-collapse">
+                      <thead>
+                        <tr className="border-b border-slate-800 text-slate-400">
+                          <th className="py-2">Pollutant Sensor</th>
+                          <th className="py-2">Zero Tolerance</th>
+                          <th className="py-2">Calibration Window</th>
+                          <th className="py-2">Max Allowed Drift</th>
+                          <th className="py-2">Recalibration Trigger</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-800 text-slate-300">
+                        <tr>
+                          <td className="py-2.5 font-bold">PM2.5 Laser Scattering</td>
+                          <td className="py-2.5">± 3.0 μg/m³</td>
+                          <td className="py-2.5">24 Hours</td>
+                          <td className="py-2.5">± 10%</td>
+                          <td className="py-2.5">Auto-Zero Recalibration</td>
+                        </tr>
+                        <tr>
+                          <td className="py-2.5 font-bold">PM10 Optical Counter</td>
+                          <td className="py-2.5">± 5.0 μg/m³</td>
+                          <td className="py-2.5">24 Hours</td>
+                          <td className="py-2.5">± 12%</td>
+                          <td className="py-2.5">Auto-Zero Recalibration</td>
+                        </tr>
+                        <tr>
+                          <td className="py-2.5 font-bold">NO₂ Electrochemical Cell</td>
+                          <td className="py-2.5">± 2.0 ppb</td>
+                          <td className="py-2.5">7 Days</td>
+                          <td className="py-2.5">± 5%</td>
+                          <td className="py-2.5">Gas Canister Zero Refresh</td>
+                        </tr>
+                        <tr>
+                          <td className="py-2.5 font-bold">SO₂ UV Fluorescence</td>
+                          <td className="py-2.5">± 1.5 ppb</td>
+                          <td className="py-2.5">7 Days</td>
+                          <td className="py-2.5">± 4%</td>
+                          <td className="py-2.5">Optical Bench Purge</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div className="bg-[#090d16] border border-slate-800 p-5 rounded-xl space-y-2 font-sans">
+                  <h4 className="text-xs font-mono font-bold text-white block">🛑 Outlier Rejection & Anomaly Detection</h4>
+                  <p className="text-xs text-slate-300 leading-relaxed font-sans">
+                    Sensors exhibiting readings outside ± 3.5 σ of neighboring H3 Res-8 cells are flagged as <code>SENSOR_DRIFT_ANOMALY</code>. Flagged streams are isolated from regulatory legal dispatch triggers until verified by a field officer.
+                  </p>
+                </div>
+              </section>
+            )}
+
             {/* MODEL VALIDATION SECTION */}
             {/* CREWAI TOPOLOGY SECTION */}
             {activeSection === "crewai-topology" && (
@@ -1670,6 +1871,85 @@ print(response.json())`}
                         />
                       </div>
                     </div>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* AUTOMATED LEGAL SHOW-CAUSE NOTICE GENERATOR SECTION */}
+            {activeSection === "notice-generator" && (
+              <section className="space-y-6">
+                <div>
+                  <div className="flex items-center gap-2 text-xs font-mono text-blue-400 mb-1">
+                    <span>SECTION 4</span> • <span>GOVERNANCE & COMPLIANCE</span>
+                  </div>
+                  <h1 className="text-3xl font-bold text-white tracking-tight font-display mb-2">
+                    Automated Show-Cause Legal Notice Generator
+                  </h1>
+                  <p className="text-sm text-slate-300 leading-relaxed font-sans">
+                    VayuSense dynamically drafts and dispatches legally binding statutory warnings to polluting entities under environmental protection regulations.
+                  </p>
+                </div>
+
+                <div className="bg-slate-900/80 border border-slate-800 p-5 rounded-xl space-y-4">
+                  <h3 className="text-sm font-bold text-white flex items-center gap-2 font-mono" id="statutory-dispatch">
+                    <span className="material-symbols-outlined text-indigo-400 text-base">gavel</span>
+                    📜 Statutory Legal Notice Dispatch Engine
+                  </h3>
+                  <p className="text-xs text-slate-300 leading-relaxed font-sans">
+                    When a persistent environmental breach occurs (AQI &gt; 300 or industrial stack emissions exceeding CPCB limits), VayuSense automatically generates and dispatches official statutory **Show-Cause Legal Notices** under Section 31A of the <em>Air (Prevention and Control of Pollution) Act, 1981</em>.
+                  </p>
+                </div>
+
+                <div className="bg-[#090d16] border border-slate-800 p-5 rounded-xl space-y-4" id="legal-templates">
+                  <h3 className="text-sm font-bold text-white flex items-center gap-2 font-mono">
+                    <span className="material-symbols-outlined text-cyan-400 text-base">description</span>
+                    🏛️ Statutory Legal Notice Template Format
+                  </h3>
+                  <pre className="p-4 bg-slate-950 border border-slate-800 rounded-lg text-xs font-mono text-yellow-500 overflow-x-auto leading-relaxed">
+                    <code>{`========================================================================================
+                         OFFICIAL STATUTORY LEGAL NOTICE
+     ISSUED UNDER SECTION 31A OF THE AIR (PREVENTION AND CONTROL OF POLLUTION) ACT, 1981
+========================================================================================
+
+TO: M/s Hind Chemical Industries Ltd., Stack No. 04
+LOCATION: H3 Res-8 Hex Cell #8860b52461fffff, MIDC Zone B, Mumbai, Maharashtra
+ISSUING AUTHORITY: Brihanmumbai Municipal Corporation (BMC) Environmental Cell
+
+NOTICE REFERENCE NO: BMC/ENV/2026/SHOW-CAUSE/0941
+DATE OF ISSUANCE: 2026-07-21 20:30:00 UTC
+SHA-256 VERIFICATION CHECKSUM: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+
+WHEREAS:
+1. Automated satellite telemetry (Sentinel-5P TROPOMI) and CAAQMS Station #14 recorded an 
+   SO2 emission surge exceeding 180 ug/m3 (CPCB Threshold: 80 ug/m3).
+2. Machine learning source attribution confirmed 74.2% attribution to Stack No. 04.
+
+YOU ARE HEREBY DIRECTED TO:
+1. Show cause within 48 HOURS why your industrial unit should not be ordered for 
+   immediate power & water supply disconnection under Section 31A.
+2. Install wet scrubber remediation equipment immediately.
+
+BY ORDER OF MUNICIPAL COMMAND DIRECTOR (CLEARANCE LEVEL 4)
+========================================================================================`}</code>
+                  </pre>
+                </div>
+
+                <div className="bg-slate-900/80 border border-slate-800 p-5 rounded-xl space-y-4" id="pdf-dispatch">
+                  <h3 className="text-sm font-bold text-white flex items-center gap-2 font-mono">
+                    <span className="material-symbols-outlined text-emerald-400 text-base">picture_as_pdf</span>
+                    📄 Automated PDF Dispatch Engine
+                  </h3>
+                  <div className="text-xs text-slate-300 space-y-2 font-sans">
+                    <p>
+                      The frontend integrates <code>generateMunicipalRegistryPdf.ts</code> (powered by jsPDF) to render client-side downloadable PDF evidence dispatches containing:
+                    </p>
+                    <ul className="list-disc pl-4 space-y-1 text-slate-400">
+                      <li>Official Municipal Logo & Emblem</li>
+                      <li>GeoJSON Plume Map Overlay Screenshot</li>
+                      <li>SHA-256 Cryptographic Verification QR Code & Hash String</li>
+                      <li>Municipal Commissioner Digital Stamp</li>
+                    </ul>
                   </div>
                 </div>
               </section>
@@ -2378,7 +2658,7 @@ print(response.json())`}
             )}
 
             {/* FALLBACK FOR ALL OTHER SECTIONS */}
-            {activeSection !== "overview" && activeSection !== "architecture" && activeSection !== "quickstart" && activeSection !== "scenario-sandbox" && activeSection !== "api-reference" && activeSection !== "dynamic-vector-layer" && activeSection !== "satellite-pipeline" && activeSection !== "model-validation" && activeSection !== "model-validation-analytical" && activeSection !== "crewai-topology" && activeSection !== "translation-overrides" && activeSection !== "sha256-exporter" && activeSection !== "command-settings" && activeSection !== "administrative-profile" && (
+            {activeSection !== "overview" && activeSection !== "architecture" && activeSection !== "quickstart" && activeSection !== "scenario-sandbox" && activeSection !== "api-reference" && activeSection !== "dynamic-vector-layer" && activeSection !== "satellite-pipeline" && activeSection !== "model-validation" && activeSection !== "model-validation-analytical" && activeSection !== "crewai-topology" && activeSection !== "translation-overrides" && activeSection !== "sha256-exporter" && activeSection !== "command-settings" && activeSection !== "administrative-profile" && activeSection !== "h3-mapping" && activeSection !== "sensor-drift" && activeSection !== "notice-generator" && (
               <section className="space-y-6">
                 <div>
                   <h1 className="text-3xl font-bold text-white tracking-tight font-display mb-2 capitalize">
